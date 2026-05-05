@@ -1,10 +1,9 @@
-import Navbar from "@/component/navbar";
+import Navbar from "../component/Navbar";
 import "./globals.css";
-import Footer from "@/component/Footer";
-
+import Footer from "../component/Footer";
 
 export const metadata = {
-  title: "My App",
+  title: "Rise at Seven",
   description: "Next.js App",
 };
 

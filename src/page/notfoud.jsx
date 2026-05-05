@@ -1,11 +1,10 @@
 import React from 'react';
 
-const home = () => {
+const Notfoud = () => {
     return (
         <div>
             
         </div>
     );
-};
-
-export default home;
+}
+export default Notfoud;
