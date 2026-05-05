@@ -3,14 +3,14 @@ import "./globals.css";
 import Footer from "../component/Footer";
 
 export const metadata = {
-  title: "Rise at Seven",
+  title: "My App",
   description: "Next.js App",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="flex flex-col min-h-screen">
+      <body className="flex flex-col min-h-screen bg-white text-black">
         
         {/* Navbar */}
         <Navbar />
