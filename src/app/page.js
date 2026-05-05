@@ -1,29 +1,12 @@
-import "./globals.css";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-
-export const metadata = {
-  title: "My App",
-  description: "Next.js App",
-};
-
-export default function RootLayout({ children }) {
+export default function Home() {
   return (
-    <html lang="en">
-      <body className="flex flex-col min-h-screen">
-        
-        {/* Navbar */}
-        <Navbar />
-
-        {/* Main Content */}
-        <main className="flex-grow container mx-auto px-4 py-6">
-          {children}
-        </main>
-
-        {/* Footer */}
-        <Footer />
-
-      </body>
-    </html>
+    <div>
+      <h1 className="text-3xl font-bold">
+        Home Page
+      </h1>
+      <p className="mt-4">
+        This is homepage content. You can add sections here.
+      </p>
+    </div>
   );
 }
