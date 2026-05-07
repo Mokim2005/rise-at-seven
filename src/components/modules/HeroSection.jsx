@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function HeroSection() {
   return (
-    <section className="bg-[#f3f3f3] py-16 md:py-24">
+    <section className=" py-16 md:py-24">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Column - Paragraph */}
@@ -19,7 +19,7 @@ export default function HeroSection() {
           {/* Right Column - Heading and Buttons */}
           <div className="order-1 lg:order-2">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight mb-8">
-              Driving Demand &{" "}
+              Driving Demand &  Discovery{" "}
               <span className="relative inline-block">
                 D
                 <span className="inline-block w-10 h-10 md:w-14 md:h-14 absolute -top-1 -right-6 md:-right-8">
@@ -32,7 +32,7 @@ export default function HeroSection() {
                 </span>
               </span>
               <br className="hidden md:block" />
-              Discovery
+             
             </h1>
 
             {/* Buttons */}

@@ -34,7 +34,7 @@ LogoItem.displayName = "LogoItem";
 
 export default function LogoCarousel() {
   return (
-    <div className="w-full bg-white overflow-hidden py-8">
+    <div className="w-full overflow-hidden py-8">
       <style>{`
         @keyframes scroll-left {
           0% { transform: translateX(0); }
