@@ -6,17 +6,18 @@ const images = ["/flight.jpg", "/flight2.jpg", "/flight3.jpg"];
 const LandingPage = () => {
   const [current, setCurrent] = useState(0);
 
-  // 🔁 Auto change every 30s
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
-    }, 30000); // 30 seconds
+    }, 30000);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <>
+   
+      <section className="relative h-screen w-full overflow-hidden">
       
       {/* Background Slider */}
       <div className="absolute inset-0">
@@ -70,6 +71,7 @@ const LandingPage = () => {
 
       </div>
     </section>
+    </>
   );
 };
 

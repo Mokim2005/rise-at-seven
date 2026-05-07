@@ -1,6 +1,6 @@
-import Navbar from "../component/Navbar";
 import "./globals.css";
-import Footer from "../component/Footer";
+import Navbar from "@/components/shared/Navbar";
+import Footer from "@/components/shared/Footer";
 
 export const metadata = {
   title: "My App",
