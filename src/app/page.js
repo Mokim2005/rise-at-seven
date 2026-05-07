@@ -1,11 +1,11 @@
-import Slider from "@/page/homepage/slider";
+import LogoCarousel from "../component/LogoCarousel";
 import LandingPage from "../page/homepage/landingPage";
 
 export default function Home() {
   return (
     <div>
       <LandingPage />
-      <Slider></Slider>
+      <LogoCarousel />
     </div>
   );
 }
