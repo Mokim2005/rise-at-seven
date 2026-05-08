@@ -72,7 +72,7 @@ export default function ReadyToRiseSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[200vh]"
+      className="relative h-[300vh]"
       style={{ background: "#EBEBEB" }}
     >
       <div
