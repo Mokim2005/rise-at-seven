@@ -32,28 +32,24 @@ const cards = [
 
 export default function StackedCards() {
   return (
-    <section className="relative ">
-      {/* Spacer for top content */}
-      <div className="h-[25vh] flex items-center justify-center px-4">
+    <section className="relative">
+      <div className="h-[20vh] flex items-center justify-center px-4">
         <h2 className="text-xl md:text-2xl font-medium text-gray-500 text-center">
           Scroll Down to Discover Our Approach
         </h2>
       </div>
 
-      {/* Cards Container - smaller height for tighter stacking */}
       <div className="relative">
         {cards.map((card, index) => {
           return <Card key={card.id} {...card} i={index} total={cards.length} />;
         })}
       </div>
 
-      {/* Spacer for bottom content */}
-      <div className="h-[30vh]" />
+      <div className="h-[25vh]" />
     </section>
   );
 }
 
-// Single Card Component with fanned stack animation
 const Card = ({ title, description, subDescription, bgColor, img, i, total }) => {
   const container = useRef(null);
 
@@ -62,35 +58,34 @@ const Card = ({ title, description, subDescription, bgColor, img, i, total }) =>
     offset: ["start center", "end center"],
   });
 
-  // Cards fan out at an angle when stacked
-  const rotate = useTransform(scrollYProgress, [0, 1], [i * 8 - 8, i * 8]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1]);
-  const translateY = useTransform(scrollYProgress, [0, 1], [0, -30 * i]);
+  // Each card starts rotated (fanned) and straightens on scroll
+  // Card 1: -12deg to 0deg, Card 2: -6deg to 0deg, Card 3: 0deg to 0deg
+  const rotate = useTransform(scrollYProgress, [0, 1], [i * -6, 0]);
+  
+  // Cards slide up as they straighten
+  const y = useTransform(scrollYProgress, [0, 1], [0, -50 * (total - i - 1)]);
+  
+  // Opacity fade for smoother transitions
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
 
   return (
-    <div ref={container} className="h-[80vh] flex items-center justify-center sticky top-0">
+    <div ref={container} className="h-[70vh] flex items-center justify-center sticky top-0">
       <motion.div
-        style={{
-          rotate,
-          scale,
-          y: translateY,
-        }}
-        className={`relative w-[90vw] max-w-[400px] md:w-[440px] h-[460px] md:h-[500px] ${bgColor} rounded-[35px] p-8 md:p-10 shadow-2xl flex flex-col items-center text-center justify-center overflow-hidden border border-gray-200/20`}
+        style={{ rotate, y, opacity }}
+        className={`relative w-[85vw] max-w-[380px] md:w-[420px] h-[420px] md:h-[460px] ${bgColor} rounded-[35px] p-7 md:p-9 shadow-2xl flex flex-col items-center text-center justify-center overflow-hidden border border-gray-200/20`}
       >
-        {/* Card Image - larger prominent circular style */}
-        <div className="w-28 h-36 md:w-32 md:h-40 rounded-2xl overflow-hidden mb-6 shadow-xl">
+        <div className="w-24 h-32 md:w-28 md:h-36 rounded-2xl overflow-hidden mb-5 shadow-lg">
           <img src={img} alt={title} className="w-full h-full object-cover" />
         </div>
 
-        {/* Card Content */}
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tighter">
+        <h2 className="text-3xl md:text-4xl font-bold mb-3 tracking-tighter">
           {title}
         </h2>
 
-        <p className="text-base md:text-lg font-medium leading-tight opacity-90 mb-3 px-2">
+        <p className="text-sm md:text-base font-medium leading-tight opacity-90 mb-2 px-2">
           {description}
         </p>
-        <p className="text-sm md:text-base opacity-70 leading-relaxed italic px-4">
+        <p className="text-xs md:text-sm opacity-70 leading-relaxed italic px-3">
           {subDescription}
         </p>
       </motion.div>

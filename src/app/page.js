@@ -5,6 +5,7 @@ import BlogSection from "@/components/modules/BlogSection";
 import ServicesSection from "@/components/modules/ServicesSection";
 import CTASection from "@/components/modules/CTASection";
 import StackedCards from "@/components/modules/StackCard";
+import ReadyToRiseSection from "../components/modules/ReadyToRiseSection";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <HeroSection />
       <ServicesSection />
       <StackedCards />
+      <ReadyToRiseSection />
       <CTASection />
       <BlogSection />
     </div>
