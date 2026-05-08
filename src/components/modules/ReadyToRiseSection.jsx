@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useRef } from "react";
 import {
   motion,
@@ -7,6 +6,45 @@ import {
   useTransform,
   useSpring,
 } from "framer-motion";
+
+// Extracted into its own component so hooks are called at top level
+function RiseLetter({ letter, index, scrollYProgress }) {
+  const riseAmount = index * 6;
+
+  const yRaw = useTransform(
+    scrollYProgress,
+    [0, 0.5, 1],
+    [
+      riseAmount * 0.6,
+      -riseAmount * 0.5,
+      -riseAmount * 1.2,
+    ]
+  );
+
+  const smoothY = useSpring(yRaw, {
+    stiffness: 50 + index * 3,
+    damping: 18,
+    mass: 0.4,
+  });
+
+  const baseSize = 13;
+  const sizeGrowth = index * 0.08;
+
+  return (
+    <motion.span
+      style={{
+        y: smoothY,
+        display: "inline-block",
+        fontSize: `${baseSize + sizeGrowth}vw`,
+        color: "#0a0a0a",
+        lineHeight: 1,
+        verticalAlign: "bottom",
+      }}
+    >
+      {letter === " " ? "\u00A0" : letter}
+    </motion.span>
+  );
+}
 
 export default function ReadyToRiseSection() {
   const sectionRef = useRef(null);
@@ -16,73 +54,53 @@ export default function ReadyToRiseSection() {
     offset: ["start end", "end start"],
   });
 
-  // Right → Left smooth movement
-  const x = useTransform(scrollYProgress, [0, 1], ["60%", "-70%"]);
-
+  const x = useTransform(scrollYProgress, [0, 1], ["55%", "-65%"]);
   const smoothX = useSpring(x, {
-    stiffness: 90,
-    damping: 24,
-    mass: 0.5,
+    stiffness: 60,
+    damping: 20,
+    mass: 0.8,
   });
 
-  // Fade effect
   const opacity = useTransform(
     scrollYProgress,
-    [0, 0.15, 0.85, 1],
+    [0, 0.12, 0.88, 1],
     [0, 1, 1, 0]
   );
 
-  // Subtle scale
-  const scale = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [0.96, 1, 1.02]
-  );
-
-  const text = "Ready to Rise Together?";
+  const letters = "Ready to Rise at Seven".split("");
 
   return (
     <section
       ref={sectionRef}
-      className="relative h-screen overflow-hidden"
+      className="relative h-[200vh]"
+      style={{ background: "#EBEBEB" }}
     >
-      {/* Sticky Area */}
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-        
-        {/* Moving Text */}
+      <div
+        className="sticky top-0 flex h-screen items-center overflow-hidden"
+        style={{ background: "#EBEBEB" }}
+      >
         <motion.div
           style={{
             x: smoothX,
             opacity,
-            scale,
           }}
-          className="relative whitespace-nowrap"
+          className="relative whitespace-nowrap will-change-transform"
         >
-          <h2 className="flex items-center font-black uppercase tracking-[-0.05em] leading-none">
-            {text.split("").map((letter, index) => {
-              const y = useTransform(
-                scrollYProgress,
-                [0, 0.5, 1],
-                [0, index % 2 === 0 ? -15 : 15, 0]
-              );
-
-              return (
-                <motion.span
-                  key={index}
-                  style={{ y }}
-                  className="
-                    inline-block
-                    text-black
-                    text-[12vw]
-                    sm:text-[10vw]
-                    md:text-[8vw]
-                    lg:text-[7vw]
-                  "
-                >
-                  {letter === " " ? "\u00A0" : letter}
-                </motion.span>
-              );
-            })}
+          <h2
+            className="flex items-end font-black leading-none"
+            style={{
+              fontFamily: "'Helvetica Neue', 'Arial', sans-serif",
+              letterSpacing: "-0.04em",
+            }}
+          >
+            {letters.map((letter, index) => (
+              <RiseLetter
+                key={index}
+                letter={letter}
+                index={index}
+                scrollYProgress={scrollYProgress}
+              />
+            ))}
           </h2>
         </motion.div>
       </div>
