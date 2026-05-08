@@ -67,7 +67,7 @@ export default function ReadyToRiseSection() {
     [0, 1, 1, 0]
   );
 
-  const letters = "Ready to Rise at Seven".split("");
+  const letters = "Ready to Rise at Seven?".split("");
 
   return (
     <section
