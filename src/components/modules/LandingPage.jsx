@@ -17,7 +17,7 @@ const LandingPage = () => {
     <>
       <style>{`
         .hero-heading {
-          font-size: clamp(3.5rem, 10vw, 9rem);
+          font-size: clamp(3rem, 8.5vw, 7.5rem);
           font-weight: 900;
           line-height: 0.95;
           letter-spacing: -0.02em;
@@ -36,15 +36,15 @@ const LandingPage = () => {
       <div className="md:p-3">
         <section className="hero-section relative h-screen w-full overflow-hidden">
 
-          {/* Background — blurred */}
+          {/* Background — slight blur like original */}
           <div className="absolute inset-0">
             <img
               src={images[current]}
               alt="bg"
               className="w-full h-full object-cover scale-105 transition-all duration-1000"
-              style={{ filter: "blur(6px)" }}
+              style={{ filter: "blur(2px)" }}
             />
-            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 bg-black/35" />
           </div>
 
           {/* Main content */}
@@ -90,7 +90,7 @@ const LandingPage = () => {
               </svg>
             </div>
 
-            {/* Hero heading — large, full width */}
+            {/* Hero heading */}
             <div className="hero-heading text-center">
               <div>We Create</div>
               <div className="flex items-center justify-center gap-4 mt-1">
@@ -101,8 +101,8 @@ const LandingPage = () => {
                     alt="inline"
                     className="object-cover rounded-2xl transition-all duration-1000"
                     style={{
-                      width: "clamp(3rem, 7vw, 7rem)",
-                      height: "clamp(3rem, 7vw, 7rem)",
+                      width: "clamp(4rem, 9vw, 9.5rem)",
+                      height: "clamp(4rem, 9vw, 9.5rem)",
                     }}
                   />
                 </span>

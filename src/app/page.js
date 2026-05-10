@@ -6,6 +6,7 @@ import ServicesSection from "@/components/modules/ServicesSection";
 import CTASection from "@/components/modules/CTASection";
 import StackedCards from "@/components/modules/StackCard";
 import ReadyToRiseSection from "../components/modules/ReadyToRiseSection";
+import FeaturedWork from "@/components/modules/FeaturedWork";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <LandingPage />
       <LogoCarousel />
       <HeroSection />
+      <FeaturedWork />
       <ServicesSection />
       <StackedCards />
       <ReadyToRiseSection />
