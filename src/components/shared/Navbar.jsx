@@ -1,18 +1,29 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [activeLink, setActiveLink] = useState("/");
+  const [visible, setVisible] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+    let lastScrollY = window.scrollY;
+
+    const controlNavbar = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setVisible(false);
+      } else {
+        setVisible(true);
+      }
+      lastScrollY = currentScrollY;
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    window.addEventListener("scroll", controlNavbar);
+    return () => window.removeEventListener("scroll", controlNavbar);
   }, []);
 
   const links = [
@@ -23,222 +34,30 @@ export default function Navbar() {
 
   return (
     <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+      {/* Navbar */}
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 flex justify-center px-6 py-3.5 transition-transform duration-300 ease-in-out ${
+          visible ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
+        <div className="w-full max-w-7xl flex items-center justify-between px-6 py-2.5 rounded-full border border-white/45 backdrop-blur-xl bg-white/30 shadow-[0_4px_24px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.6)]">
 
-        .navbar {
-          font-family: 'Outfit', sans-serif;
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          z-index: 50;
-          padding: 0;
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .navbar-inner {
-          margin: 12px 20px;
-          border-radius: 20px;
-          padding: 14px 28px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .navbar-inner.transparent {
-          background: rgba(255, 255, 255, 0.06);
-          backdrop-filter: blur(16px) saturate(1.8);
-          -webkit-backdrop-filter: blur(16px) saturate(1.8);
-          border-color: rgba(255, 255, 255, 0.15);
-          box-shadow:
-            0 4px 30px rgba(0, 0, 0, 0.1),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        }
-
-        .navbar-inner.scrolled {
-          background: rgba(255, 255, 255, 0.75);
-          backdrop-filter: blur(24px) saturate(2);
-          -webkit-backdrop-filter: blur(24px) saturate(2);
-          border-color: rgba(255, 255, 255, 0.6);
-          box-shadow:
-            0 8px 40px rgba(0, 0, 0, 0.12),
-            0 2px 8px rgba(0, 0, 0, 0.06),
-            inset 0 1px 0 rgba(255, 255, 255, 0.9);
-        }
-
-        /* Logo */
-        .logo {
-          font-size: 1.3rem;
-          font-weight: 700;
-          letter-spacing: -0.5px;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          text-decoration: none;
-          transition: all 0.3s ease;
-        }
-
-        .logo-dot {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, #6366f1, #8b5cf6);
-          box-shadow: 0 0 10px rgba(99, 102, 241, 0.6);
-          transition: transform 0.3s ease;
-          flex-shrink: 0;
-        }
-
-        .logo:hover .logo-dot {
-          transform: scale(1.4);
-        }
-
-        .navbar-inner.transparent .logo {
-          color: white;
-          text-shadow: 0 1px 8px rgba(0,0,0,0.15);
-        }
-
-        .navbar-inner.scrolled .logo {
-          color: #1a1a2e;
-        }
-
-        /* Nav links */
-        .nav-links {
-          display: flex;
-          align-items: center;
-          gap: 4px;
-          list-style: none;
-          margin: 0;
-          padding: 0;
-        }
-
-        .nav-link {
-          position: relative;
-          padding: 8px 18px;
-          border-radius: 12px;
-          font-size: 0.9rem;
-          font-weight: 500;
-          text-decoration: none;
-          letter-spacing: 0.01em;
-          transition: all 0.25s ease;
-          cursor: pointer;
-        }
-
-        .navbar-inner.transparent .nav-link {
-          color: rgba(255, 255, 255, 0.85);
-        }
-
-        .navbar-inner.transparent .nav-link:hover,
-        .navbar-inner.transparent .nav-link.active {
-          color: white;
-          background: rgba(255, 255, 255, 0.15);
-          box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
-        }
-
-        .navbar-inner.scrolled .nav-link {
-          color: #4b5563;
-        }
-
-        .navbar-inner.scrolled .nav-link:hover {
-          color: #1a1a2e;
-          background: rgba(99, 102, 241, 0.08);
-        }
-
-        .navbar-inner.scrolled .nav-link.active {
-          color: #6366f1;
-          background: rgba(99, 102, 241, 0.1);
-        }
-
-        /* Active indicator pill */
-        .nav-link::after {
-          content: '';
-          position: absolute;
-          bottom: 5px;
-          left: 50%;
-          transform: translateX(-50%) scaleX(0);
-          width: 16px;
-          height: 2px;
-          border-radius: 2px;
-          background: linear-gradient(90deg, #6366f1, #8b5cf6);
-          transition: transform 0.25s ease;
-        }
-
-        .nav-link.active::after {
-          transform: translateX(-50%) scaleX(1);
-        }
-
-        /* CTA Button */
-        .cta-btn {
-          padding: 9px 22px;
-          border-radius: 12px;
-          font-size: 0.88rem;
-          font-weight: 600;
-          letter-spacing: 0.02em;
-          cursor: pointer;
-          border: none;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          position: relative;
-          overflow: hidden;
-          text-decoration: none;
-          display: inline-block;
-        }
-
-        .navbar-inner.transparent .cta-btn {
-          background: rgba(255, 255, 255, 0.18);
-          color: white;
-          border: 1px solid rgba(255,255,255,0.35);
-          backdrop-filter: blur(8px);
-        }
-
-        .navbar-inner.transparent .cta-btn:hover {
-          background: rgba(255, 255, 255, 0.28);
-          transform: translateY(-1px);
-          box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        }
-
-        .navbar-inner.scrolled .cta-btn {
-          background: linear-gradient(135deg, #6366f1, #8b5cf6);
-          color: white;
-          box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
-        }
-
-        .navbar-inner.scrolled .cta-btn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(99, 102, 241, 0.45);
-        }
-
-        .cta-btn::before {
-          content: '';
-          position: absolute;
-          top: 0; left: -100%;
-          width: 100%; height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-          transition: left 0.5s ease;
-        }
-
-        .cta-btn:hover::before {
-          left: 100%;
-        }
-      `}</style>
-
-      <nav className="navbar">
-        <div className={`navbar-inner ${scrolled ? "scrolled" : "transparent"}`}>
           {/* Logo */}
-          <Link href="/" className="logo">
-            <span className="logo-dot" />
-            MyApp
+          <Link href="/" className="text-[15px] font-semibold text-[#1a1209] tracking-tight whitespace-nowrap flex-shrink-0">
+            Rise at Seven<sup className="text-[9px] font-medium text-[#5a4a3a] ml-px">®</sup>
           </Link>
 
-          {/* Nav Links */}
-          <ul className="nav-links">
+          {/* Desktop Links */}
+          <ul className="hidden md:flex items-center gap-0.5 list-none m-0 p-0">
             {links.map(({ href, label }) => (
               <li key={href}>
                 <Link
                   href={href}
-                  className={`nav-link ${activeLink === href ? "active" : ""}`}
-                  onClick={() => setActiveLink(href)}
+                  className={`px-3.5 py-1.5 text-sm rounded-full transition-colors duration-200 whitespace-nowrap ${
+                    pathname === href
+                      ? "font-semibold text-[#0d0d0d]"
+                      : "font-medium text-[#2d2218] hover:bg-black/[0.06] hover:text-[#0d0d0d]"
+                  }`}
                 >
                   {label}
                 </Link>
@@ -246,12 +65,91 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* CTA Button */}
-          <Link href="/signup" className="cta-btn">
+          {/* Desktop CTA */}
+          <Link
+            href="/signup"
+            className="hidden md:inline-flex items-center gap-1.5 px-5 py-2 bg-[#1a1209] text-[#f5f0e8] text-sm font-semibold rounded-full whitespace-nowrap flex-shrink-0 shadow-[0_2px_8px_rgba(0,0,0,0.18)] hover:bg-[#2e2010] hover:-translate-y-px hover:shadow-[0_6px_18px_rgba(0,0,0,0.22)] transition-all duration-200"
+          >
             Get Started
+            {/* Arrow icon at 45 degrees (top-right diagonal) */}
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 13 13"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="flex-shrink-0"
+            >
+              <path
+                d="M1.5 11.5L11.5 1.5M11.5 1.5H4M11.5 1.5V9"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </Link>
+
+          {/* Mobile Toggle */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="flex md:hidden p-1.5 text-[#1a1209] bg-transparent border-none cursor-pointer"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? (
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <path d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
         </div>
       </nav>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-6 pt-20 px-6 pb-6 bg-[rgba(240,235,230,0.92)] backdrop-blur-2xl md:hidden">
+          {links.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              onClick={() => setMobileMenuOpen(false)}
+              className={`text-2xl rounded-full px-6 py-3 transition-colors duration-200 ${
+                pathname === href
+                  ? "font-semibold text-[#0d0d0d]"
+                  : "font-medium text-[#2d2218] hover:bg-black/[0.06]"
+              }`}
+            >
+              {label}
+            </Link>
+          ))}
+          <Link
+            href="/signup"
+            onClick={() => setMobileMenuOpen(false)}
+            className="mt-3 inline-flex items-center gap-2 px-9 py-3.5 bg-[#1a1209] text-[#f5f0e8] text-base font-semibold rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.18)] hover:bg-[#2e2010] transition-all duration-200"
+          >
+            Get Started
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 13 13"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1.5 11.5L11.5 1.5M11.5 1.5H4M11.5 1.5V9"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Link>
+        </div>
+      )}
     </>
   );
 }
