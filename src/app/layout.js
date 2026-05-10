@@ -15,8 +15,8 @@ export default function RootLayout({ children }) {
         {/* Navbar */}
         <Navbar />
 
-        {/* Main Content */}
-        <main className="flex-grow container mx-auto px-4 py-6">
+        {/* Main Content — no container/padding, children handle their own layout */}
+        <main className="flex-grow">
           {children}
         </main>
 

@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 export default function Navbar() {
   const [visible, setVisible] = useState(true);
   const [scrolled, setScrolled] = useState(false);
-  const [atTop, setAtTop] = useState(true); // true = in banner zone → top-2
+  const [atTop, setAtTop] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -17,23 +17,18 @@ export default function Navbar() {
     const controlNavbar = () => {
       const currentScrollY = window.scrollY;
 
-      // Hide/show logic (existing)
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
         setVisible(false);
       } else {
         setVisible(true);
       }
 
-      // Glassy bg: appears after 20px
       setScrolled(currentScrollY > 20);
-
-      // atTop: when inside banner (near top) → top-2, else → top-10
       setAtTop(currentScrollY < 80);
 
       lastScrollY = currentScrollY;
     };
 
-    // Initial state on mount
     const initialY = window.scrollY;
     setScrolled(initialY > 20);
     setAtTop(initialY < 80);
@@ -54,7 +49,7 @@ export default function Navbar() {
       <nav
         className={`fixed left-0 right-0 z-50 flex justify-center px-6 transition-all duration-300 ease-in-out ${
           visible ? "translate-y-0" : "-translate-y-full"
-        } ${atTop ? "top-8 py-0" : "top-2 py-0"}`}
+        } ${atTop ? "top-8 py-0" : "top-0 py-0"}`}
       >
         <div
           className={`w-full max-w-7xl flex items-center justify-between transition-all duration-300 ease-in-out ${
@@ -70,7 +65,7 @@ export default function Navbar() {
               scrolled ? "text-[#1a1209]" : "text-white"
             }`}
           >
-            MyApp
+            Rise at Seven
             <sup className={`text-[9px] font-medium ml-px ${scrolled ? "text-[#5a4a3a]" : "text-white/70"}`}>
               ®
             </sup>
@@ -98,33 +93,50 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* Desktop CTA */}
-          <Link
-            href="/signup"
-            className={`hidden md:inline-flex items-center gap-1.5 px-5 py-2 text-sm font-semibold rounded-full whitespace-nowrap flex-shrink-0 transition-all duration-300 ${
-              scrolled
-                ? "bg-[#1a1209] text-[#f5f0e8] shadow-[0_2px_8px_rgba(0,0,0,0.18)] hover:bg-[#2e2010] hover:-translate-y-px hover:shadow-[0_6px_18px_rgba(0,0,0,0.22)]"
-                : "bg-white text-[#1a1209] shadow-[0_2px_8px_rgba(0,0,0,0.15)] hover:bg-white/90 hover:-translate-y-px"
-            }`}
-          >
-            Get Started
-            <svg
-              width="13"
-              height="13"
-              viewBox="0 0 13 13"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="flex-shrink-0"
+{/* Desktop CTA Button */}
+           {scrolled ? (
+            // Scrolled: dark bg, light text
+            <Link
+              href="/signup"
+              className="group hidden md:inline-flex items-center gap-1.5 px-5 py-2 text-sm font-semibold whitespace-nowrap flex-shrink-0 transition-all duration-300 ease-in-out rounded-full hover:rounded-lg bg-[#1a1209] text-[#f5f0e8] shadow-[0_2px_8px_rgba(0,0,0,0.18)] hover:bg-white hover:text-[#1a1209] hover:shadow-[0_6px_18px_rgba(0,0,0,0.15)] overflow-hidden"
             >
-              <path
-                d="M1.5 11.5L11.5 1.5M11.5 1.5H4M11.5 1.5V9"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </Link>
+              <span className="cta-text-wrapper flex items-center gap-1.5">
+                <span className="cta-text-default text-[#f5f0e8] transition-opacity duration-300 ease-in-out">
+                  Get Started
+                </span>
+                <span className="cta-text-hover text-[#1a1209] transition-opacity duration-300 ease-in-out">
+                  Get Started
+                </span>
+                <svg
+                  width="13" height="13" viewBox="0 0 13 13" fill="none"
+                  className="flex-shrink-0 transition-colors duration-300 ease-in-out"
+                >
+                  <path d="M1.5 11.5L11.5 1.5M11.5 1.5H4M11.5 1.5V9" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </span>
+            </Link>
+           ) : (
+            // At top: white bg, dark text
+            <Link
+              href="/signup"
+              className="group hidden md:inline-flex items-center gap-1.5 px-5 py-2 text-sm font-semibold whitespace-nowrap flex-shrink-0 transition-all duration-300 ease-in-out rounded-full hover:rounded-lg bg-white text-[#1a1209] shadow-[0_2px_8px_rgba(0,0,0,0.15)] hover:bg-[#1a1209] hover:text-[#f5f0e8] hover:shadow-[0_6px_18px_rgba(0,0,0,0.22)] overflow-hidden"
+            >
+              <span className="cta-text-wrapper flex items-center gap-1.5">
+                <span className="cta-text-default text-[#1a1209] transition-opacity duration-300 ease-in-out">
+                  Get Started
+                </span>
+                <span className="cta-text-hover text-[#f5f0e8] transition-opacity duration-300 ease-in-out">
+                  Get Started
+                </span>
+                <svg
+                  width="13" height="13" viewBox="0 0 13 13" fill="none"
+                  className="flex-shrink-0 transition-colors duration-300 ease-in-out"
+                >
+                  <path d="M1.5 11.5L11.5 1.5M11.5 1.5H4M11.5 1.5V9" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </span>
+            </Link>
+           )}
 
           {/* Mobile Toggle */}
           <button
@@ -170,8 +182,8 @@ export default function Navbar() {
             className="mt-3 inline-flex items-center gap-2 px-9 py-3.5 bg-[#1a1209] text-[#f5f0e8] text-base font-semibold rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.18)] hover:bg-[#2e2010] transition-all duration-200"
           >
             Get Started
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1.5 11.5L11.5 1.5M11.5 1.5H4M11.5 1.5V9" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M1.5 11.5L11.5 1.5M11.5 1.5H4M11.5 1.5V9" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </Link>
         </div>
