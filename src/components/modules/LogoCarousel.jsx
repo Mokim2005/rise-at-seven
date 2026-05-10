@@ -6,7 +6,7 @@ const logos = [
   {
     name: "Emirates",
     svg: (
-      <svg viewBox="0 0 120 36" className="h-6 w-auto" fill="currentColor">
+      <svg viewBox="0 0 120 36" className="h-12 w-auto" fill="currentColor">
         <text x="30" y="25" fontSize="13" fontWeight="600" fontFamily="serif" letterSpacing="1">Emirates</text>
         <g transform="translate(2,2) scale(0.52)">
           <path d="M8 4C8 4 3 9 3 16C3 22 7 27 13 29C11 25 10 20 11 16C12 12 15 9 19 8C15 6 11 4 8 4Z"/>
@@ -19,7 +19,7 @@ const logos = [
   {
     name: "Capital One",
     svg: (
-      <svg viewBox="0 0 132 36" className="h-6 w-auto" fill="currentColor">
+      <svg viewBox="0 0 132 36" className="h-12 w-auto" fill="currentColor">
         <text x="2" y="24" fontSize="17" fontWeight="700" fontFamily="Arial, sans-serif" letterSpacing="-0.5">Capital</text>
         <path d="M78 8 Q93 18 78 28" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
         <text x="82" y="24" fontSize="17" fontWeight="400" fontFamily="Arial, sans-serif" fontStyle="italic">One</text>
@@ -29,7 +29,7 @@ const logos = [
   {
     name: "Red Bull",
     svg: (
-      <svg viewBox="0 0 88 40" className="h-8 w-auto" fill="currentColor">
+      <svg viewBox="0 0 88 40" className="h-11 w-auto" fill="currentColor">
         <ellipse cx="30" cy="13" rx="10" ry="7"/>
         <ellipse cx="50" cy="13" rx="10" ry="7"/>
         <path d="M24 9 Q26 3 30 5" fill="none" stroke="currentColor" strokeWidth="1.5"/>
@@ -41,7 +41,7 @@ const logos = [
   {
     name: "JD",
     svg: (
-      <svg viewBox="0 0 42 42" className="h-9 w-auto" fill="currentColor">
+      <svg viewBox="0 0 42 42" className="h-12 w-auto" fill="currentColor">
         <circle cx="21" cy="21" r="20" fill="currentColor"/>
         <text x="21" y="28" fontSize="15" fontWeight="900" fontFamily="Arial Black, sans-serif" textAnchor="middle" fill="white">JD</text>
       </svg>
@@ -50,7 +50,7 @@ const logos = [
   {
     name: "HubSpot",
     svg: (
-      <svg viewBox="0 0 108 36" className="h-6 w-auto" fill="currentColor">
+      <svg viewBox="0 0 108 36" className="h-12 w-auto" fill="currentColor">
         <circle cx="11" cy="18" r="4.5"/>
         <circle cx="25" cy="11" r="3.5"/>
         <circle cx="25" cy="25" r="3.5"/>
@@ -63,7 +63,7 @@ const logos = [
   {
     name: "Xbox",
     svg: (
-      <svg viewBox="0 0 96 36" className="h-6 w-auto" fill="currentColor">
+      <svg viewBox="0 0 96 36" className="h-12 w-auto" fill="currentColor">
         <circle cx="18" cy="18" r="16" fill="none" stroke="currentColor" strokeWidth="2"/>
         <path d="M8 9 Q18 18 8 27" fill="currentColor" opacity="0.75"/>
         <path d="M28 9 Q18 18 28 27" fill="currentColor" opacity="0.75"/>
@@ -74,7 +74,7 @@ const logos = [
   {
     name: "Sixt",
     svg: (
-      <svg viewBox="0 0 76 36" className="h-7 w-auto" fill="currentColor">
+      <svg viewBox="0 0 76 36" className="h-10 w-auto" fill="currentColor">
         <text x="2" y="29" fontSize="28" fontWeight="900" fontFamily="Arial Black, sans-serif" letterSpacing="-1">SiXT</text>
       </svg>
     ),
@@ -82,7 +82,7 @@ const logos = [
   {
     name: "Revolution",
     svg: (
-      <svg viewBox="0 0 138 40" className="h-8 w-auto" fill="currentColor">
+      <svg viewBox="0 0 138 40" className="h-11 w-auto" fill="currentColor">
         <text x="2" y="20" fontSize="12" fontWeight="700" fontFamily="Arial, sans-serif" letterSpacing="2">REVOLUTION</text>
         <text x="2" y="34" fontSize="8" fontWeight="400" fontFamily="Arial, sans-serif" letterSpacing="3">BEAUTY LONDON</text>
       </svg>
@@ -91,7 +91,7 @@ const logos = [
   {
     name: "PlayStation",
     svg: (
-      <svg viewBox="0 0 42 42" className="h-9 w-auto" fill="currentColor">
+      <svg viewBox="0 0 42 42" className="h-12 w-auto" fill="currentColor">
         <path d="M16 30 L16 10 C16 10 23 9 25 15 C27 20 24 24 19 25 L27 30 L21 30 L17 25.5 L17 30 Z"/>
         <path d="M14 28.5 L10 27 L10 25 L21 29 L21 30.5 Z" opacity="0.65"/>
       </svg>
@@ -100,7 +100,7 @@ const logos = [
   {
     name: "AXA",
     svg: (
-      <svg viewBox="0 0 52 42" className="h-8 w-auto" fill="currentColor">
+      <svg viewBox="0 0 52 42" className="h-11 w-auto" fill="currentColor">
         <rect x="1" y="1" width="50" height="40" rx="2" fill="currentColor"/>
         <text x="26" y="28" fontSize="17" fontWeight="900" fontFamily="Arial Black, sans-serif" textAnchor="middle" fill="white">AXA</text>
       </svg>
@@ -109,7 +109,7 @@ const logos = [
   {
     name: "SharkNinja",
     svg: (
-      <svg viewBox="0 0 124 36" className="h-6 w-auto" fill="currentColor">
+      <svg viewBox="0 0 124 36" className="h-12 w-auto" fill="currentColor">
         <text x="2" y="25" fontSize="14" fontWeight="800" fontFamily="Arial Black, sans-serif">Shark</text>
         <rect x="58" y="7" width="2" height="20" fill="currentColor"/>
         <text x="64" y="25" fontSize="14" fontWeight="800" fontFamily="Arial Black, sans-serif">NINJA</text>
@@ -132,7 +132,7 @@ export default function LogoCarousel() {
   const repeated = [...logos, ...logos, ...logos];
 
   return (
-    <div className="w-full bg-[#EEEEEE] py-5 relative overflow-hidden flex items-center">
+    <div className="w-full bg-[#EEEEEE] py-7 relative overflow-hidden flex items-center">
       <style>{`
         @keyframes scroll-left {
           0%   { transform: translateX(0); }
