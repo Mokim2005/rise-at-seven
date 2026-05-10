@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const [visible, setVisible] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
+  const [atTop, setAtTop] = useState(true); // true = in banner zone → top-2
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -14,13 +16,27 @@ export default function Navbar() {
 
     const controlNavbar = () => {
       const currentScrollY = window.scrollY;
+
+      // Hide/show logic (existing)
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
         setVisible(false);
       } else {
         setVisible(true);
       }
+
+      // Glassy bg: appears after 20px
+      setScrolled(currentScrollY > 20);
+
+      // atTop: when inside banner (near top) → top-2, else → top-10
+      setAtTop(currentScrollY < 80);
+
       lastScrollY = currentScrollY;
     };
+
+    // Initial state on mount
+    const initialY = window.scrollY;
+    setScrolled(initialY > 20);
+    setAtTop(initialY < 80);
 
     window.addEventListener("scroll", controlNavbar);
     return () => window.removeEventListener("scroll", controlNavbar);
@@ -36,15 +52,28 @@ export default function Navbar() {
     <>
       {/* Navbar */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 flex justify-center px-6 py-3.5 transition-transform duration-300 ease-in-out ${
+        className={`fixed left-0 right-0 z-50 flex justify-center px-6 transition-all duration-300 ease-in-out ${
           visible ? "translate-y-0" : "-translate-y-full"
-        }`}
+        } ${atTop ? "top-8 py-0" : "top-2 py-0"}`}
       >
-        <div className="w-full max-w-7xl flex items-center justify-between px-6 py-2.5 rounded-full border border-white/45 backdrop-blur-xl bg-white/30 shadow-[0_4px_24px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.6)]">
-
+        <div
+          className={`w-full max-w-7xl flex items-center justify-between transition-all duration-300 ease-in-out ${
+            scrolled
+              ? "px-6 py-2.5 rounded-full border border-white/45 backdrop-blur-xl bg-white/30 shadow-[0_4px_24px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.6)]"
+              : "px-2 py-2"
+          }`}
+        >
           {/* Logo */}
-          <Link href="/" className="text-[15px] font-semibold text-[#1a1209] tracking-tight whitespace-nowrap flex-shrink-0">
-            Rise at Seven<sup className="text-[9px] font-medium text-[#5a4a3a] ml-px">®</sup>
+          <Link
+            href="/"
+            className={`text-[15px] font-semibold tracking-tight whitespace-nowrap flex-shrink-0 transition-colors duration-300 ${
+              scrolled ? "text-[#1a1209]" : "text-white"
+            }`}
+          >
+            MyApp
+            <sup className={`text-[9px] font-medium ml-px ${scrolled ? "text-[#5a4a3a]" : "text-white/70"}`}>
+              ®
+            </sup>
           </Link>
 
           {/* Desktop Links */}
@@ -53,10 +82,14 @@ export default function Navbar() {
               <li key={href}>
                 <Link
                   href={href}
-                  className={`px-3.5 py-1.5 text-sm rounded-full transition-colors duration-200 whitespace-nowrap ${
-                    pathname === href
-                      ? "font-semibold text-[#0d0d0d]"
-                      : "font-medium text-[#2d2218] hover:bg-black/[0.06] hover:text-[#0d0d0d]"
+                  className={`px-3.5 py-1.5 text-sm rounded-full transition-all duration-200 whitespace-nowrap ${
+                    scrolled
+                      ? pathname === href
+                        ? "font-semibold text-[#0d0d0d]"
+                        : "font-medium text-[#2d2218] hover:bg-black/[0.06] hover:text-[#0d0d0d]"
+                      : pathname === href
+                      ? "font-semibold text-white"
+                      : "font-medium text-white/85 hover:text-white hover:bg-white/10"
                   }`}
                 >
                   {label}
@@ -68,10 +101,13 @@ export default function Navbar() {
           {/* Desktop CTA */}
           <Link
             href="/signup"
-            className="hidden md:inline-flex items-center gap-1.5 px-5 py-2 bg-[#1a1209] text-[#f5f0e8] text-sm font-semibold rounded-full whitespace-nowrap flex-shrink-0 shadow-[0_2px_8px_rgba(0,0,0,0.18)] hover:bg-[#2e2010] hover:-translate-y-px hover:shadow-[0_6px_18px_rgba(0,0,0,0.22)] transition-all duration-200"
+            className={`hidden md:inline-flex items-center gap-1.5 px-5 py-2 text-sm font-semibold rounded-full whitespace-nowrap flex-shrink-0 transition-all duration-300 ${
+              scrolled
+                ? "bg-[#1a1209] text-[#f5f0e8] shadow-[0_2px_8px_rgba(0,0,0,0.18)] hover:bg-[#2e2010] hover:-translate-y-px hover:shadow-[0_6px_18px_rgba(0,0,0,0.22)]"
+                : "bg-white text-[#1a1209] shadow-[0_2px_8px_rgba(0,0,0,0.15)] hover:bg-white/90 hover:-translate-y-px"
+            }`}
           >
             Get Started
-            {/* Arrow icon at 45 degrees (top-right diagonal) */}
             <svg
               width="13"
               height="13"
@@ -93,7 +129,9 @@ export default function Navbar() {
           {/* Mobile Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="flex md:hidden p-1.5 text-[#1a1209] bg-transparent border-none cursor-pointer"
+            className={`flex md:hidden p-1.5 bg-transparent border-none cursor-pointer transition-colors duration-300 ${
+              scrolled ? "text-[#1a1209]" : "text-white"
+            }`}
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? (
@@ -132,20 +170,8 @@ export default function Navbar() {
             className="mt-3 inline-flex items-center gap-2 px-9 py-3.5 bg-[#1a1209] text-[#f5f0e8] text-base font-semibold rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.18)] hover:bg-[#2e2010] transition-all duration-200"
           >
             Get Started
-            <svg
-              width="13"
-              height="13"
-              viewBox="0 0 13 13"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M1.5 11.5L11.5 1.5M11.5 1.5H4M11.5 1.5V9"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.5 11.5L11.5 1.5M11.5 1.5H4M11.5 1.5V9" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </Link>
         </div>
