@@ -187,7 +187,7 @@ export default function FeaturedWorkSection() {
               position: "absolute",
               top: "40px",
               left: "48px",
-              fontSize: "13px",
+              fontSize: "20px",
               color: "#888",
               fontFamily: "'Helvetica Neue', Arial, sans-serif",
               fontWeight: 500,
@@ -255,7 +255,7 @@ export default function FeaturedWorkSection() {
                   <span
                     style={{
                       fontSize: isActive
-                        ? "clamp(28px, 4.2vw, 56px)"
+                        ? "clamp(35px, 4.2vw, 70px)"
                         : "clamp(22px, 3.5vw, 46px)",
                       fontFamily: "'Helvetica Neue', Arial, sans-serif",
                       fontWeight: 700,
@@ -309,12 +309,13 @@ export default function FeaturedWorkSection() {
           {/* TOP CARD — previous project, small */}
           <div
             style={{
-              flex: "0 0 38%",
+              height: "20%",
+              flex: "0 0 auto",
               borderRadius: "14px",
               overflow: "hidden",
               position: "relative",
-              opacity: activeIndex === 0 ? 0 : 1,
-              transition: "opacity 0.4s ease",
+              opacity: activeIndex === 0 ? 0.25 : 1,
+              transition: "all 0.4s ease",
             }}
           >
             {activeIndex > 0 && (
@@ -341,6 +342,7 @@ export default function FeaturedWorkSection() {
           <div
             style={{
               flex: "1",
+              marginTop: "0",
               borderRadius: "14px",
               overflow: "hidden",
               position: "relative",
