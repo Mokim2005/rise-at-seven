@@ -5,59 +5,83 @@ import { useRef, useEffect, useState } from "react";
 const projects = [
   {
     id: 1,
-    name: "Pooky",
-    year: "[2025]",
+    name: "SIXT",
+    year: "[2023-2025]",
     image:
-      "https://images.unsplash.com/photo-1543198126-a2bf12f7e5a7?w=800&q=80",
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
     label: "Rechargeable Lights",
   },
   {
     id: 2,
-    name: "Parkdean Resorts",
-    year: "[2019-2025]",
+    name: "Dojo - B2B",
+    year: "[2021-2025]",
     image:
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
     label: "UK holidays",
   },
   {
     id: 3,
-    name: "Revolution Beauty",
-    year: "[2022-2025]",
+    name: "Magnet Trade - B2B",
+    year: "[2023-2024]",
     image:
       "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=80",
     label: "Beauty Dupes",
   },
   {
     id: 4,
-    name: "JD Sports",
-    year: "[2025]",
+    name: "Leading E Sim brand globally",
+    year: "[2023-2025]",
     image:
       "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80",
     label: "Trainers",
   },
   {
     id: 5,
-    name: "Leading E Sim brand globally",
-    year: "[2023-2025]",
+    name: "JD Sports",
+    year: "[2025]",
     image:
       "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=800&q=80",
     label: "Esims",
   },
   {
     id: 6,
-    name: "Trade - B2B",
-    year: "[2024]",
+    name: "Parkdean Resorts",
+    year: "[2019-2025]",
     image:
       "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80",
     label: "B2B",
   },
   {
     id: 7,
-    name: "Magnet",
-    year: "[2024]",
+    name: "Pooky",
+    year: "[2025]",
     image:
       "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
     label: "Kitchen Design",
+  },
+  {
+    id: 8,
+    name: "Parkdean Resorts",
+    year: "[2019-2025]",
+    image:
+      "https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?w=800&q=80",
+    label: "STI tests",
+  },
+  {
+    id: 9,
+    name: "Revolution Beauty",
+    year: "[2022-2025]",
+    image:
+      "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&q=80",
+    label: "Outfits",
+  },
+  {
+    id: 10,
+    name: "Lloyds Pharmacy",
+    year: "[2022-2023]",
+    image:
+      "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&q=80",
+    label: "Outfits",
   },
 ];
 
@@ -175,7 +199,6 @@ export default function FeaturedWorkSection() {
             Featured Work
           </div>
 
-          {/* Top fade mask — covers above the text zone */}
           {/* Top fade mask — covers above the text zone */}
           <div
             style={{
