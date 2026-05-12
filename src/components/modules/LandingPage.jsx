@@ -119,7 +119,7 @@ const LandingPage = () => {
           {/* Bottom left */}
           <div className="absolute bottom-6 left-6 z-10 text-left max-w-xs">
             <p className="text-[11px] md:text-sm text-white/70 leading-relaxed">
-              Organic media planners creating, distributing & optimising{" "}
+              Organic media planners creating, distributing &amp; optimising{" "}
               <strong className="text-white font-semibold">search-first</strong>{" "}
               content for SEO, Social, PR, Ai and LLM search
             </p>
@@ -129,7 +129,7 @@ const LandingPage = () => {
           <div className="absolute bottom-6 right-6 z-10 text-right">
             <p className="text-[11px] md:text-sm text-white/70 leading-relaxed">
               4 Global Offices serving <br />
-              <strong className="text-white font-semibold">UK, USA (New York) & EU</strong>
+              <strong className="text-white font-semibold">UK, USA (New York) &amp; EU</strong>
             </p>
           </div>
 

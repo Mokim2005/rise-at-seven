@@ -39,7 +39,7 @@ export default function HeroSection() {
 
               {/* 1st line */}
               <span className="block">
-              Driving Demand &
+              Driving Demand &amp;
               </span>
 
               {/* 2nd line */}

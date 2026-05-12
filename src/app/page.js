@@ -16,10 +16,11 @@ export default function Home() {
       <HeroSection />
       <FeaturedWork />
       <ServicesSection />
-      <StackedCards />
-      <ReadyToRiseSection />
       <CTASection />
+      <StackedCards />
       <BlogSection />
+      <ReadyToRiseSection />
+      
     </div>
   );
 }

@@ -30,7 +30,7 @@ const CARDS = [
     bgColor: "#7EDDD0",
     textColor: "#111111",
     restingRotation: 6,
-    exitRotation:-22,
+    exitRotation: -22,
     zIndex: 2,
     body: [
       "A roll top bath full of 79 awards. Voted The Drum's best agency outside of London. We are official judges for industry awards including Global Search Awards and Global Content Marketing Awards."
@@ -72,7 +72,7 @@ export default function StackedCards() {
         });
       });
 
-      // Main timeline
+      // Scroll Timeline
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
@@ -80,8 +80,10 @@ export default function StackedCards() {
           end: "+=300%",
           scrub: 1,
           pin: true,
+          pinSpacing: false,
+          anticipatePin: 1,
           invalidateOnRefresh: true,
-        }
+        },
       });
 
       // Card 1
@@ -89,23 +91,23 @@ export default function StackedCards() {
         y: "-130vh",
         rotate: CARDS[0].exitRotation,
         duration: 1,
-        ease: "none"
-      })
+        ease: "power1.out",
+      });
 
       // Card 2
-      .to(cards[1], {
+      tl.to(cards[1], {
         y: "-130vh",
         rotate: CARDS[1].exitRotation,
         duration: 1,
-        ease: "none"
-      })
+        ease: "power1.out",
+      });
 
       // Card 3
-      .to(cards[2], {
+      tl.to(cards[2], {
         y: "-130vh",
         rotate: CARDS[2].exitRotation,
         duration: 1,
-        ease: "none"
+        ease: "power1.out",
       });
 
     }, containerRef);
@@ -116,45 +118,65 @@ export default function StackedCards() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full bg-[#E5E5E5]"
-      style={{ height: "400vh" }}
+      className="relative w-full bg-[#EFEEEC]"
+      style={{
+        height: "300vh",
+        margin: 0,
+        padding: 0,
+        overflow: "hidden",
+      }}
     >
-      <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+      {/* Sticky Wrapper */}
+      <div className="sticky top-0 h-screen w-full flex items-center justify-center">
 
         {/* Section Title */}
-        <div className="absolute top-[40px] left-0 w-full text-center z-20">
+        <div className="absolute top-[32px] left-0 w-full text-center z-20 pointer-events-none">
           <p
-            className="text-[15px] font-[400] text-[#555] tracking-[0.02em] font-sans"
-            style={{ fontWeight: 400 }}
+            className="text-[14px] md:text-[15px] text-[#555] tracking-[0.02em]"
+            style={{
+              fontFamily: "Manrope, Inter, sans-serif",
+              fontWeight: 400,
+            }}
           >
             Legacy In The Making
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="relative w-full h-full flex items-center justify-center">
+        {/* Cards Container */}
+        <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
 
           {CARDS.map((card, i) => (
             <div
               key={card.id}
               ref={(el) => (cardRefs.current[i] = el)}
-              className="absolute top-1/2 left-1/2 rounded-[28px]
-              shadow-[0_24px_64px_rgba(0,0,0,0.18)]
-              flex flex-col items-center text-center
-              will-change-transform overflow-hidden"
+              className="
+                absolute top-1/2 left-1/2
+                rounded-[28px]
+                flex flex-col items-center text-center
+                overflow-hidden will-change-transform
+                shadow-[0_24px_64px_rgba(0,0,0,0.18)]
+              "
               style={{
                 backgroundColor: card.bgColor,
                 color: card.textColor,
-                width: "min(460px, 92vw)",
-                padding: "44px 40px 48px 40px",
+                width: "min(460px,92vw)",
+                padding: "44px 40px 48px",
                 transformOrigin: "center center",
               }}
             >
 
               {/* Image */}
-              <div className="w-[120px] h-[120px] md:w-[155px] md:h-[155px]
-              rounded-[14px] overflow-hidden mb-[28px]
-              bg-[#333] flex-shrink-0">
+              <div
+                className="
+                  w-[120px] h-[120px]
+                  md:w-[155px] md:h-[155px]
+                  rounded-[14px]
+                  overflow-hidden
+                  mb-[28px]
+                  bg-[#333]
+                  flex-shrink-0
+                "
+              >
                 <img
                   src={card.image}
                   alt={card.title}
@@ -168,10 +190,16 @@ export default function StackedCards() {
 
               {/* Title */}
               <h3
-                className="text-[38px] md:text-[54px]
-                font-[800] leading-[1.05]
-                mb-[20px] tracking-tighter"
-                style={{ fontWeight: 800 }}
+                className="
+                  text-[38px] md:text-[54px]
+                  leading-[1.05]
+                  mb-[20px]
+                  tracking-tighter
+                "
+                style={{
+                  fontWeight: 800,
+                  fontFamily: "Manrope, Inter, sans-serif",
+                }}
               >
                 {card.title}
               </h3>
@@ -181,13 +209,18 @@ export default function StackedCards() {
                 {card.body.map((text, idx) => (
                   <p
                     key={idx}
-                    className="text-[12.5px] md:text-[13.5px]
-                    leading-[1.65] font-medium"
+                    className="
+                      text-[12.5px]
+                      md:text-[13.5px]
+                      leading-[1.65]
+                    "
                     style={{
+                      fontFamily: "Manrope, Inter, sans-serif",
+                      fontWeight: 500,
                       color:
                         card.textColor === "#FFFFFF"
                           ? "rgba(255,255,255,0.9)"
-                          : "#1a1a1a"
+                          : "#1a1a1a",
                     }}
                   >
                     {text}
@@ -199,12 +232,6 @@ export default function StackedCards() {
           ))}
         </div>
       </div>
-
-      <style jsx global>{`
-        .font-sans {
-          font-family: 'Manrope', 'Inter', sans-serif;
-        }
-      `}</style>
     </section>
   );
 }

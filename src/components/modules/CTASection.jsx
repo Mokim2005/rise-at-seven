@@ -74,7 +74,7 @@ export default function CTASection() {
           animate={{ x: ["0%", "-50%"] }}
           transition={{
             ease: "linear",
-            duration: 20,
+            duration: 80,
             repeat: Infinity,
           }}
         >
