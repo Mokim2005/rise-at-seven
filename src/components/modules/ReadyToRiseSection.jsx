@@ -1,126 +1,89 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useLayoutEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const phrase = "Ready to Rise at Seven?";
-
+/**
+ * ReadyToRiseSection - Refined & Optimized
+ * A high-end, scroll-driven kinetic typography section.
+ * Path: RIGHT SIDE -> TOP-20 POSITION -> LEFT EXIT
+ */
 export default function ReadyToRiseSection() {
-  const sectionRef = useRef(null);
-  const [progress, setProgress] = useState(0);
+  const triggerRef = useRef(null);
+  const textRef = useRef(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const section = sectionRef.current;
-      if (!section) return;
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
 
-      const rect = section.getBoundingClientRect();
-      const sectionHeight = section.offsetHeight;
-      const viewportHeight = window.innerHeight;
+    let ctx = gsap.context(() => {
+      const text = textRef.current;
+      
+      // Master Timeline for synchronized motion
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: triggerRef.current,
+          start: "top top",
+          end: "+=100%", // Reduced further to eliminate the large bottom gap
+          pin: true,
+          scrub: 1.2,
+          invalidateOnRefresh: true,
+        },
+      });
 
-      // progress 0 = section top at bottom of viewport
-      // progress 1 = section bottom at top of viewport
-      const scrolled = -rect.top;
-      const total = sectionHeight - viewportHeight;
-      const p = Math.min(Math.max(scrolled / total, 0), 1);
-      setProgress(p);
-    };
+      // 1. Initial State: Start fully off-screen right
+      gsap.set(text, {
+        xPercent: 100, // Relative to text width
+        y: "5vh",      // Slightly near top
+        opacity: 0,
+      });
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+      // 2. Step 1: Diagonal move to Top-20 position (partially visible)
+      tl.to(text, {
+        xPercent: 20,  // Move into view from the right
+        y: "20vh",     // Reach the 20% top position
+        opacity: 1,
+        ease: "power2.out",
+        duration: 1,
+      })
+      // 3. Step 2: Horizontal scroll to full left exit
+      .to(text, {
+        xPercent: -120, // Fully clear the screen to the left
+        ease: "none",   // Linear for the horizontal exit stage
+        duration: 2,
+      }, "+=0.1");
+
+    }, triggerRef);
+
+    return () => ctx.revert();
   }, []);
 
-  // Horizontal: text starts fully off-screen right, ends fully off-screen left
-  // At progress=0: translateX = 100vw (off right)
-  // At progress=0.5: translateX = center (text visible, centered-ish)
-  // At progress=1: translateX = -120% (off left)
-  const totalChars = phrase.length;
-
-  const xPercent = progress < 0.5
-    ? 100 - (progress / 0.5) * 130   // 100% -> -30% (center)
-    : -30 - ((progress - 0.5) / 0.5) * 100; // -30% -> -130%
-
-  // Each letter rises and grows as scroll progresses
-  // Earlier letters: smaller, rise less
-  // Later letters: bigger, rise more (matching the website effect)
-  const letters = phrase.split("").map((char, i) => {
-    const t = i / (totalChars - 1); // 0 to 1 across letters
-
-    // Font size: first letter ~8vw, last letter ~18vw
-    const baseFontSize = 8 + t * 10;
-
-    // Vertical rise: letters rise up as you scroll, with later letters rising more
-    // At progress=0: letters are at bottom (positive Y = down)
-    // At progress=1: letters are at top (negative Y = up)
-    const maxRise = 60 + t * 120; // px, later letters rise more
-    const yOffset = maxRise * (0.5 - progress); // positive = below center, negative = above
-
-    return { char, baseFontSize, yOffset };
-  });
-
-  const opacity = progress < 0.05
-    ? progress / 0.05
-    : progress > 0.95
-    ? 1 - (progress - 0.95) / 0.05
-    : 1;
-
   return (
-    <section
-      ref={sectionRef}
-      style={{
-        height: "400vh",
-        background: "#EBEBEB",
-        position: "relative",
-      }}
+    <section 
+      ref={triggerRef} 
+      className="relative h-[200vh] bg-[#EAEAE6] overflow-hidden"
     >
-      {/* Sticky viewport */}
-      <div
-        style={{
-          position: "sticky",
-          top: 0,
-          height: "100vh",
-          overflow: "hidden",
-          display: "flex",
-          alignItems: "center",
-          background: "#EBEBEB",
-        }}
-      >
-        {/* Moving text container */}
+      {/* Sticky Container */}
+      <div className="sticky top-0 h-screen flex flex-col justify-start overflow-hidden">
+        
+        {/* Responsive Text Wrapper */}
         <div
-          style={{
-            position: "absolute",
-            left: 0,
-            right: 0,
-            display: "flex",
-            alignItems: "flex-end",
-            whiteSpace: "nowrap",
-            transform: `translateX(${xPercent}vw)`,
-            transition: "transform 0.05s linear",
-            opacity,
-            paddingBottom: "4vh",
-          }}
+          ref={textRef}
+          className="inline-block whitespace-nowrap select-none will-change-transform min-w-max"
+          style={{ transformOrigin: "left center" }}
         >
-          {letters.map(({ char, baseFontSize, yOffset }, i) => (
-            <span
-              key={i}
-              style={{
-                display: "inline-block",
-                fontSize: `${baseFontSize}vw`,
-                fontFamily: "'Helvetica Neue', 'Arial', sans-serif",
-                fontWeight: 700,
-                color: "#0a0a0a",
-                lineHeight: 1,
-                letterSpacing: "-0.03em",
-                transform: `translateY(${yOffset}px)`,
-                transition: "transform 0.05s linear, font-size 0.05s linear",
-                verticalAlign: "bottom",
-                userSelect: "none",
-              }}
-            >
-              {char === " " ? "\u00A0" : char}
-            </span>
-          ))}
+          <h2 
+            className="font-black tracking-tighter text-[#0A0A0A] leading-none"
+            style={{ 
+              fontSize: "clamp(80px, 14vw, 240px)", // Slightly smaller for better fit
+              letterSpacing: "-0.04em",
+              padding: "0 5vw" // Prevent clipping of edges
+            }}
+          >
+            Ready to Rise at Seven?
+          </h2>
         </div>
+        
       </div>
     </section>
   );

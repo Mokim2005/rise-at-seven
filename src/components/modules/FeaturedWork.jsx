@@ -2,6 +2,9 @@
 
 import { useRef, useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const projects = [
   {
