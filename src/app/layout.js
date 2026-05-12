@@ -4,8 +4,8 @@ import Footer from "@/components/shared/Footer";
 import SmoothScroll from "@/components/shared/SmoothScroll";
 
 export const metadata = {
-  title: "My App",
-  description: "Next.js App",
+  title: "Rise at Seven",
+  description: "Award Winning Search-First Content Marketing Agency",
 };
 
 export default function RootLayout({ children }) {
