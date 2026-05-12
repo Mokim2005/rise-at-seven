@@ -1,6 +1,5 @@
-"use client";
-
 import Image from "next/image";
+import AnimatedButton from "@/components/ui/AnimatedButton";
 
 export default function HeroSection() {
   return (
@@ -37,18 +36,31 @@ export default function HeroSection() {
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white border border-gray-300 rounded-full font-medium text-gray-900 hover:bg-gray-50 transition-colors">
+              <AnimatedButton variant="primary">
                 Our Story
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg
+                  className="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
                   <path d="M7 17L17 7M17 7H7M17 7V17" />
                 </svg>
-              </button>
-              <a href="#" className="inline-flex items-center justify-center gap-2 px-2 py-1 font-medium text-gray-900 hover:text-gray-600 transition-colors">
+              </AnimatedButton>
+
+              <AnimatedButton variant="ghost" href="#">
                 Our Services
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg
+                  className="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
                   <path d="M7 17L17 7M17 7H7M17 7V17" />
                 </svg>
-              </a>
+              </AnimatedButton>
             </div>
           </div>
         </div>

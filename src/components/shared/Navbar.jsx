@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import AnimatedButton from "@/components/ui/AnimatedButton";
 
 export default function Navbar() {
   const [visible, setVisible] = useState(true);
@@ -93,50 +94,22 @@ export default function Navbar() {
             ))}
           </ul>
 
-{/* Desktop CTA Button */}
-           {scrolled ? (
-            // Scrolled: dark bg, light text
-            <Link
-              href="/signup"
-              className="group hidden md:inline-flex items-center gap-1.5 px-5 py-2 text-sm font-semibold whitespace-nowrap flex-shrink-0 transition-all duration-300 ease-in-out rounded-full hover:rounded-lg bg-[#1a1209] text-[#f5f0e8] shadow-[0_2px_8px_rgba(0,0,0,0.18)] hover:bg-white hover:text-[#1a1209] hover:shadow-[0_6px_18px_rgba(0,0,0,0.15)] overflow-hidden"
+          {/* Desktop CTA Button */}
+          <div className="hidden md:block">
+            <AnimatedButton 
+              href="/signup" 
+              variant={scrolled ? "dark" : "primary"}
+              className="px-5 py-2 text-sm"
             >
-              <span className="cta-text-wrapper flex items-center gap-1.5">
-                <span className="cta-text-default text-[#f5f0e8] transition-opacity duration-300 ease-in-out">
-                  Get Started
-                </span>
-                <span className="cta-text-hover text-[#1a1209] transition-opacity duration-300 ease-in-out">
-                  Get Started
-                </span>
-                <svg
-                  width="13" height="13" viewBox="0 0 13 13" fill="none"
-                  className="flex-shrink-0 transition-colors duration-300 ease-in-out"
-                >
-                  <path d="M1.5 11.5L11.5 1.5M11.5 1.5H4M11.5 1.5V9" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </span>
-            </Link>
-           ) : (
-            // At top: white bg, dark text
-            <Link
-              href="/signup"
-              className="group hidden md:inline-flex items-center gap-1.5 px-5 py-2 text-sm font-semibold whitespace-nowrap flex-shrink-0 transition-all duration-300 ease-in-out rounded-full hover:rounded-lg bg-white text-[#1a1209] shadow-[0_2px_8px_rgba(0,0,0,0.15)] hover:bg-[#1a1209] hover:text-[#f5f0e8] hover:shadow-[0_6px_18px_rgba(0,0,0,0.22)] overflow-hidden"
-            >
-              <span className="cta-text-wrapper flex items-center gap-1.5">
-                <span className="cta-text-default text-[#1a1209] transition-opacity duration-300 ease-in-out">
-                  Get Started
-                </span>
-                <span className="cta-text-hover text-[#f5f0e8] transition-opacity duration-300 ease-in-out">
-                  Get Started
-                </span>
-                <svg
-                  width="13" height="13" viewBox="0 0 13 13" fill="none"
-                  className="flex-shrink-0 transition-colors duration-300 ease-in-out"
-                >
-                  <path d="M1.5 11.5L11.5 1.5M11.5 1.5H4M11.5 1.5V9" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </span>
-            </Link>
-           )}
+              Get Started
+              <svg
+                width="13" height="13" viewBox="0 0 13 13" fill="none"
+                className="flex-shrink-0"
+              >
+                <path d="M1.5 11.5L11.5 1.5M11.5 1.5H4M11.5 1.5V9" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </AnimatedButton>
+          </div>
 
           {/* Mobile Toggle */}
           <button

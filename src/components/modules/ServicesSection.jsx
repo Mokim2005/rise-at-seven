@@ -10,6 +10,8 @@ const services = [
   { id: 6, name: "Onsite SEO", image: "https://images.unsplash.com/photo-1571721795195-a2ca2d3370a9?q=80&w=1000" },
 ];
 
+import AnimatedButton from "@/components/ui/AnimatedButton";
+
 export default function ServicesSection() {
   return (
     <section className="max-w-[1440px] mx-auto px-6 py-20 ">
@@ -29,9 +31,9 @@ export default function ServicesSection() {
             Services
           </h2>
         </div>
-        <button className="bg-white border border-gray-300 px-6 py-2 rounded-full text-sm font-semibold flex items-center gap-2 hover:bg-black hover:text-white transition-all">
+        <AnimatedButton variant="primary" className="px-6 py-2 text-sm">
           View All Services <ArrowUpRight size={16} />
-        </button>
+        </AnimatedButton>
       </div>
 
       <hr className="border-gray-200" />

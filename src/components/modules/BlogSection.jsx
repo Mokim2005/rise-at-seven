@@ -25,6 +25,8 @@ const blogData = [
   },
 ];
 
+import AnimatedButton from "@/components/ui/AnimatedButton";
+
 export default function BlogSection() {
   return (
     <section className="max-w-[1440px] mx-auto px-6 py-16">
@@ -33,9 +35,11 @@ export default function BlogSection() {
         <h2 className="text-5xl md:text-7xl font-bold tracking-tighter">
           What's New
         </h2>
-        <button className="hidden md:flex items-center gap-2 border border-gray-300 px-6 py-2 rounded-full font-medium hover:bg-black hover:text-white transition-all">
-          Explore More Thoughts <ArrowUpRight size={18} />
-        </button>
+        <div className="hidden md:block">
+          <AnimatedButton variant="primary" className="px-6 py-2">
+            Explore More Thoughts <ArrowUpRight size={18} />
+          </AnimatedButton>
+        </div>
       </div>
 
       {/* Grid Section */}
