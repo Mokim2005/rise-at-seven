@@ -5,31 +5,56 @@ import { useRef, useEffect, useState } from "react";
 const projects = [
   {
     id: 1,
-    name: "Resorts",
-    year: "[2023-2024]",
-    color: "#c8b89a",
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80",
-    label: "Luxury Escapes",
+    name: "Pooky",
+    year: "[2025]",
+    image: "https://images.unsplash.com/photo-1543198126-a2bf12f7e5a7?w=800&q=80",
+    label: "Rechargeable Lights",
   },
   {
     id: 2,
-    name: "Revolution Beauty",
-    year: "[2022-2025]",
-    color: "#e8a090",
-    image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=80",
-    label: "Beauty Dupes ↗",
+    name: "Parkdean Resorts",
+    year: "[2019-2025]",
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+    label: "UK holidays",
   },
   {
     id: 3,
-    name: "Lloyds",
-    year: "[2022-23]",
-    color: "#7eb8a4",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80",
-    label: "Finance & Trust ↗",
+    name: "Revolution Beauty",
+    year: "[2022-2025]",
+    image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=80",
+    label: "Beauty Dupes",
+  },
+  {
+    id: 4,
+    name: "JD Sports",
+    year: "[2025]",
+    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80",
+    label: "Trainers",
+  },
+  {
+    id: 5,
+    name: "Leading E Sim brand globally",
+    year: "[2023-2025]",
+    image: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=800&q=80",
+    label: "Esims",
+  },
+  {
+    id: 6,
+    name: "Trade - B2B",
+    year: "[2024]",
+    image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80",
+    label: "B2B",
+  },
+  {
+    id: 7,
+    name: "Magnet",
+    year: "[2024]",
+    image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
+    label: "Kitchen Design",
   },
 ];
 
-export default function FeaturedWork() {
+export default function FeaturedWorkSection() {
   const sectionRef = useRef(null);
   const [progress, setProgress] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -61,34 +86,31 @@ export default function FeaturedWork() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Card stack offsets
-  const getCardStyle = (i) => {
-    const diff = i - activeIndex;
-    const totalCards = projects.length;
+  const labelStyle = {
+    position: "absolute",
+    bottom: "14px",
+    right: "14px",
+    background: "rgba(0,0,0,0.55)",
+    backdropFilter: "blur(8px)",
+    borderRadius: "20px",
+    padding: "6px 12px",
+    fontSize: "12px",
+    color: "#fff",
+    fontFamily: "'Helvetica Neue', Arial, sans-serif",
+    fontWeight: 500,
+    letterSpacing: "0.04em",
+    display: "flex",
+    alignItems: "center",
+    gap: "6px",
+  };
 
-    if (diff < 0) {
-      // Past cards: slide up and out
-      return {
-        transform: `translateY(-105%) scale(0.95)`,
-        opacity: 0,
-        zIndex: 0,
-      };
-    } else if (diff === 0) {
-      // Active card: front
-      return {
-        transform: `translateY(0%) scale(1)`,
-        opacity: 1,
-        zIndex: totalCards,
-      };
-    } else {
-      // Upcoming cards: stacked below, slightly offset
-      const offset = Math.min(diff, 3);
-      return {
-        transform: `translateY(${offset * 14}px) scale(${1 - offset * 0.04})`,
-        opacity: 1 - offset * 0.2,
-        zIndex: totalCards - diff,
-      };
-    }
+  const dotStyle = {
+    width: "6px",
+    height: "6px",
+    borderRadius: "50%",
+    background: "#fff",
+    display: "inline-block",
+    flexShrink: 0,
   };
 
   return (
@@ -217,73 +239,66 @@ export default function FeaturedWork() {
           </div>
         </div>
 
-        {/* RIGHT PANEL – card stack */}
+        {/* RIGHT PANEL – two cards: top=previous (small, exiting), bottom=active (large) */}
         <div
           style={{
             flex: "0 0 50%",
-            position: "relative",
-            background: "#1a1a1a",
+            background: "#141414",
             overflow: "hidden",
-            borderRadius: "0 24px 24px 0",
+            borderRadius: "0 28px 28px 0",
+            display: "flex",
+            flexDirection: "column",
+            gap: "12px",
+            padding: "16px 16px 16px 8px",
+            boxSizing: "border-box",
           }}
         >
-          {projects.map((project, i) => {
-            const style = getCardStyle(i);
-            return (
-              <div
-                key={project.id}
-                style={{
-                  position: "absolute",
-                  inset: "20px",
-                  borderRadius: "16px",
-                  overflow: "hidden",
-                  transition: "transform 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.55s ease",
-                  ...style,
-                }}
-              >
-                {/* Image */}
+          {/* TOP CARD — previous project, small */}
+          <div
+            style={{
+              flex: "0 0 38%",
+              borderRadius: "14px",
+              overflow: "hidden",
+              position: "relative",
+              opacity: activeIndex === 0 ? 0 : 1,
+              transition: "opacity 0.4s ease",
+            }}
+          >
+            {activeIndex > 0 && (
+              <>
                 <img
-                  src={project.image}
-                  alt={project.name}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                  }}
+                  src={projects[activeIndex - 1].image}
+                  alt={projects[activeIndex - 1].name}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                 />
-                {/* Overlay label */}
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "16px",
-                    right: "16px",
-                    background: "rgba(0,0,0,0.5)",
-                    backdropFilter: "blur(8px)",
-                    borderRadius: "20px",
-                    padding: "6px 14px",
-                    fontSize: "12px",
-                    color: "#fff",
-                    fontFamily: "'Helvetica Neue', Arial, sans-serif",
-                    fontWeight: 500,
-                    letterSpacing: "0.04em",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px",
-                  }}
-                >
-                  <span style={{
-                    width: "6px",
-                    height: "6px",
-                    borderRadius: "50%",
-                    background: "#fff",
-                    display: "inline-block",
-                  }} />
-                  {project.label}
+                <div style={labelStyle}>
+                  <span style={dotStyle} />
+                  {projects[activeIndex - 1].label}
                 </div>
-              </div>
-            );
-          })}
+              </>
+            )}
+          </div>
+
+          {/* BOTTOM CARD — active project, large */}
+          <div
+            style={{
+              flex: "1",
+              borderRadius: "14px",
+              overflow: "hidden",
+              position: "relative",
+              transition: "opacity 0.4s ease",
+            }}
+          >
+            <img
+              src={projects[activeIndex].image}
+              alt={projects[activeIndex].name}
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            />
+            <div style={labelStyle}>
+              <span style={dotStyle} />
+              {projects[activeIndex].label}
+            </div>
+          </div>
         </div>
       </div>
     </section>
