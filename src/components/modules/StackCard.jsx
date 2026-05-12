@@ -1,219 +1,210 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import React, { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const cards = [
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+const CARDS = [
   {
     id: 1,
     title: "Pioneers",
-    description:
-      "We're dedicated to creating the industry narrative that others follow 3 years from now.",
-    subDescription:
-      "We paved the path for creative SEO and multi-channel search.",
-    bgColor: "#000000",
-    textColor: "#ffffff",
-    img: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=500",
+    image: "/card1.jpg",
+    bgColor: "#111111",
+    textColor: "#FFFFFF",
+    restingRotation: -7,
+    exitRotation: -22,
+    zIndex: 3,
+    body: [
+      "We're dedicated to creating the industry narrative that others follow 3 years from now. We paved the path for creative SEO, multi-channel search with Digital PR, and Social Search and we will continue to do it.",
+      "We're on a mission to be the first search-first agency to win a Cannes Lion disrupting the status quo."
+    ]
   },
   {
     id: 2,
-    title: "Innovators",
-    description:
-      "Our approach to digital marketing combines data-driven insights with creative excellence.",
-    subDescription: "Recognized as the world's best search awards winner.",
-    bgColor: "#b2f5ea",
-    textColor: "#000000",
-    img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=500",
+    title: "Award Winning",
+    image: "/card2.jpg",
+    bgColor: "#7EDDD0",
+    textColor: "#111111",
+    restingRotation: 6,
+    exitRotation:-22,
+    zIndex: 2,
+    body: [
+      "A roll top bath full of 79 awards. Voted The Drum's best agency outside of London. We are official judges for industry awards including Global Search Awards and Global Content Marketing Awards."
+    ]
   },
   {
     id: 3,
-    title: "Thinkers",
-    description:
-      "Strategy is at the heart of everything we do. We set trends through bold thinking.",
-    subDescription: "Breaking boundaries and redefining modern marketing.",
-    bgColor: "#ffffff",
-    textColor: "#000000",
-    img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=500",
-  },
+    title: "Speed",
+    image: "/card3.jpg",
+    bgColor: "#FFFFFF",
+    textColor: "#111111",
+    restingRotation: -4,
+    exitRotation: -22,
+    zIndex: 1,
+    body: [
+      "People ask us why we are called Rise at Seven? Ever heard the saying Early Bird catches the worm? Google is moving fast, but humans are moving faster. We chase consumers, not algorithms. We've created a service which takes ideas to result within 60 minutes."
+    ]
+  }
 ];
 
 export default function StackedCards() {
+  const containerRef = useRef(null);
+  const cardRefs = useRef([]);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const cards = cardRefs.current;
+
+      // Initial state
+      cards.forEach((card, index) => {
+        gsap.set(card, {
+          xPercent: -50,
+          yPercent: -50,
+          rotate: CARDS[index].restingRotation,
+          zIndex: CARDS[index].zIndex,
+          y: 0,
+          opacity: 1,
+          force3D: true,
+        });
+      });
+
+      // Main timeline
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "+=300%",
+          scrub: 1,
+          pin: true,
+          invalidateOnRefresh: true,
+        }
+      });
+
+      // Card 1
+      tl.to(cards[0], {
+        y: "-130vh",
+        rotate: CARDS[0].exitRotation,
+        duration: 1,
+        ease: "none"
+      })
+
+      // Card 2
+      .to(cards[1], {
+        y: "-130vh",
+        rotate: CARDS[1].exitRotation,
+        duration: 1,
+        ease: "none"
+      })
+
+      // Card 3
+      .to(cards[2], {
+        y: "-130vh",
+        rotate: CARDS[2].exitRotation,
+        duration: 1,
+        ease: "none"
+      });
+
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section style={{ position: "relative",  }}>
-      <div
-        style={{
-          height: "20vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "0 1rem",
-        }}
-      >
-        <h2
-          style={{
-            fontSize: "clamp(1rem, 2.5vw, 1.25rem)",
-            fontWeight: 500,
-            color: "#6b7280",
-            textAlign: "center",
-            fontFamily: "sans-serif",
-            margin: 0,
-          }}
-        >
-          Scroll Down to Discover Our Approach
-        </h2>
+    <section
+      ref={containerRef}
+      className="relative w-full bg-[#E5E5E5]"
+      style={{ height: "400vh" }}
+    >
+      <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+
+        {/* Section Title */}
+        <div className="absolute top-[40px] left-0 w-full text-center z-20">
+          <p
+            className="text-[15px] font-[400] text-[#555] tracking-[0.02em] font-sans"
+            style={{ fontWeight: 400 }}
+          >
+            Legacy In The Making
+          </p>
+        </div>
+
+        {/* Cards */}
+        <div className="relative w-full h-full flex items-center justify-center">
+
+          {CARDS.map((card, i) => (
+            <div
+              key={card.id}
+              ref={(el) => (cardRefs.current[i] = el)}
+              className="absolute top-1/2 left-1/2 rounded-[28px]
+              shadow-[0_24px_64px_rgba(0,0,0,0.18)]
+              flex flex-col items-center text-center
+              will-change-transform overflow-hidden"
+              style={{
+                backgroundColor: card.bgColor,
+                color: card.textColor,
+                width: "min(460px, 92vw)",
+                padding: "44px 40px 48px 40px",
+                transformOrigin: "center center",
+              }}
+            >
+
+              {/* Image */}
+              <div className="w-[120px] h-[120px] md:w-[155px] md:h-[155px]
+              rounded-[14px] overflow-hidden mb-[28px]
+              bg-[#333] flex-shrink-0">
+                <img
+                  src={card.image}
+                  alt={card.title}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.style.display = "none";
+                    e.target.parentElement.style.backgroundColor = "#333";
+                  }}
+                />
+              </div>
+
+              {/* Title */}
+              <h3
+                className="text-[38px] md:text-[54px]
+                font-[800] leading-[1.05]
+                mb-[20px] tracking-tighter"
+                style={{ fontWeight: 800 }}
+              >
+                {card.title}
+              </h3>
+
+              {/* Body */}
+              <div className="space-y-4 max-w-[380px]">
+                {card.body.map((text, idx) => (
+                  <p
+                    key={idx}
+                    className="text-[12.5px] md:text-[13.5px]
+                    leading-[1.65] font-medium"
+                    style={{
+                      color:
+                        card.textColor === "#FFFFFF"
+                          ? "rgba(255,255,255,0.9)"
+                          : "#1a1a1a"
+                    }}
+                  >
+                    {text}
+                  </p>
+                ))}
+              </div>
+
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div style={{ position: "relative" }}>
-        {cards.map((card, index) => (
-          <Card key={card.id} {...card} i={index} total={cards.length} />
-        ))}
-      </div>
-
-      <div style={{ height: "25vh" }} />
+      <style jsx global>{`
+        .font-sans {
+          font-family: 'Manrope', 'Inter', sans-serif;
+        }
+      `}</style>
     </section>
   );
 }
-
-const Card = ({
-  title,
-  description,
-  subDescription,
-  bgColor,
-  textColor,
-  img,
-  i,
-  total,
-}) => {
-  const container = useRef(null);
-
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ["start center", "end center"],
-  });
-
-  // Fan rotation: earlier cards rotate more (negative = counter-clockwise fan)
-  const startRotate = (total - 1 - i) * -8;
-  const rawRotate = useTransform(scrollYProgress, [0, 0.6], [startRotate, 0]);
-  const rotate = useSpring(rawRotate, { stiffness: 120, damping: 20, mass: 0.5 });
-
-  // Card slides up from below as it comes into view
-  const rawY = useTransform(scrollYProgress, [0, 0.6], [80, 0]);
-  const y = useSpring(rawY, { stiffness: 120, damping: 20, mass: 0.5 });
-
-  // Fade in smoothly
-  const rawOpacity = useTransform(scrollYProgress, [0, 0.25, 0.8, 1], [0, 1, 1, 0]);
-  const opacity = useSpring(rawOpacity, { stiffness: 100, damping: 20 });
-
-  // Scale up slightly as card enters
-  const rawScale = useTransform(scrollYProgress, [0, 0.5], [0.92, 1]);
-  const scale = useSpring(rawScale, { stiffness: 120, damping: 20, mass: 0.5 });
-
-  return (
-    <div
-      ref={container}
-      style={{
-        height: "70vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "sticky",
-        top: 0,
-      }}
-    >
-      <motion.div
-        style={{
-          rotate,
-          y,
-          opacity,
-          scale,
-          backgroundColor: bgColor,
-          color: textColor,
-          borderRadius: "35px",
-          padding: "clamp(1.75rem, 4vw, 2.25rem)",
-          width: "min(85vw, 380px)",
-          boxShadow:
-            "0 20px 60px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.10)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          textAlign: "center",
-          justifyContent: "center",
-          gap: "0.75rem",
-          willChange: "transform, opacity",
-          overflow: "hidden",
-          border: "1px solid rgba(200,200,200,0.15)",
-        }}
-      >
-        {/* Image */}
-        <div
-          style={{
-            width: "clamp(80px, 18vw, 96px)",
-            height: "clamp(100px, 22vw, 128px)",
-            borderRadius: "16px",
-            overflow: "hidden",
-            boxShadow: "0 4px 16px rgba(0,0,0,0.18)",
-            flexShrink: 0,
-          }}
-        >
-          <img
-            src={img}
-            alt={title}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
-            }}
-            loading="lazy"
-          />
-        </div>
-
-        {/* Title */}
-        <h2
-          style={{
-            fontSize: "clamp(1.75rem, 6vw, 2.5rem)",
-            fontWeight: 700,
-            letterSpacing: "-0.03em",
-            margin: 0,
-            lineHeight: 1.1,
-            fontFamily: "sans-serif",
-            color: textColor,
-          }}
-        >
-          {title}
-        </h2>
-
-        {/* Description */}
-        <p
-          style={{
-            fontSize: "clamp(0.8rem, 2.5vw, 0.9rem)",
-            fontWeight: 500,
-            lineHeight: 1.5,
-            opacity: 0.9,
-            margin: "0 0.5rem",
-            fontFamily: "sans-serif",
-            color: textColor,
-          }}
-        >
-          {description}
-        </p>
-
-        {/* Sub description */}
-        <p
-          style={{
-            fontSize: "clamp(0.7rem, 2vw, 0.8rem)",
-            fontWeight: 400,
-            lineHeight: 1.6,
-            opacity: 0.65,
-            fontStyle: "italic",
-            margin: "0 0.75rem",
-            fontFamily: "sans-serif",
-            color: textColor,
-          }}
-        >
-          {subDescription}
-        </p>
-      </motion.div>
-    </div>
-  );
-};
