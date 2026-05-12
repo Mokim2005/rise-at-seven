@@ -48,7 +48,7 @@ export default function CTASection() {
 
   return (
     <section
-      className="relative w-full py-20 bg-[#ececec] overflow-hidden cursor-none"
+      className="relative w-full py-20 bg-[#EFEEEC] overflow-hidden cursor-none"
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

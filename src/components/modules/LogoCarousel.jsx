@@ -132,7 +132,7 @@ export default function LogoCarousel() {
   const repeated = [...logos, ...logos, ...logos];
 
   return (
-    <div className="w-full bg-[#EEEEEE] py-7 relative overflow-hidden flex items-center">
+    <div className="w-full bg-[#EFEEEC] py-7 relative overflow-hidden flex items-center">
       <style>{`
         @keyframes scroll-left {
           0%   { transform: translateX(0); }
@@ -153,7 +153,7 @@ export default function LogoCarousel() {
         className="absolute left-0 top-0 bottom-0 z-20 pointer-events-none"
         style={{
           width: "220px",
-          background: "linear-gradient(to right, #EEEEEE 55%, transparent 100%)",
+          background: "linear-gradient(to right, #EFEEEC 55%, transparent 100%)",
         }}
       />
 
@@ -162,7 +162,7 @@ export default function LogoCarousel() {
         className="absolute right-0 top-0 bottom-0 z-20 pointer-events-none"
         style={{
           width: "160px",
-          background: "linear-gradient(to left, #EEEEEE 45%, transparent 100%)",
+          background: "linear-gradient(to left, #EFEEEC 45%, transparent 100%)",
         }}
       />
 

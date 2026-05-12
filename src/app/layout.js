@@ -1,6 +1,7 @@
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
+import SmoothScroll from "@/components/shared/SmoothScroll";
 
 export const metadata = {
   title: "My App",
@@ -10,14 +11,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="flex flex-col min-h-screen bg-white text-black">
+      <body className="flex flex-col min-h-screen text-black">
         
         {/* Navbar */}
         <Navbar />
 
-        {/* Main Content — no container/padding, children handle their own layout */}
+        {/* Main Content — integrated with Lenis Smooth Scrolling */}
         <main className="flex-grow">
-          {children}
+          <SmoothScroll>
+            {children}
+          </SmoothScroll>
         </main>
 
         {/* Footer */}

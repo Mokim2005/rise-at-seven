@@ -3,7 +3,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #EFEEEC;
   --foreground: #000000;
   --font-primary: 'Open Sans', sans-serif;
   --font-heading: 'Urbanist', sans-serif;

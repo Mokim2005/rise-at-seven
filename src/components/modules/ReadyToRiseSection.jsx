@@ -61,7 +61,7 @@ export default function ReadyToRiseSection() {
   return (
     <section 
       ref={triggerRef} 
-      className="relative h-[200vh] bg-[#EAEAE6] overflow-hidden"
+      className="relative h-[200vh] bg-[#EFEEEC] overflow-hidden"
     >
       {/* Sticky Container */}
       <div className="sticky top-0 h-screen flex flex-col justify-start overflow-hidden">
