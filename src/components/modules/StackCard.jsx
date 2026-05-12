@@ -12,7 +12,7 @@ const CARDS = [
   {
     id: 1,
     title: "Pioneers",
-    image: "/card1.jpg",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800",
     bgColor: "#111111",
     textColor: "#FFFFFF",
     restingRotation: -7,
@@ -26,7 +26,7 @@ const CARDS = [
   {
     id: 2,
     title: "Award Winning",
-    image: "/card2.jpg",
+    image: "https://images.unsplash.com/photo-1579389083078-4e7018379f7e?q=80&w=800",
     bgColor: "#7EDDD0",
     textColor: "#111111",
     restingRotation: 6,
@@ -39,7 +39,7 @@ const CARDS = [
   {
     id: 3,
     title: "Speed",
-    image: "/card3.jpg",
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800",
     bgColor: "#FFFFFF",
     textColor: "#111111",
     restingRotation: -4,
@@ -149,13 +149,7 @@ export default function StackedCards() {
             <div
               key={card.id}
               ref={(el) => (cardRefs.current[i] = el)}
-              className="
-                absolute top-1/2 left-1/2
-                rounded-[28px]
-                flex flex-col items-center text-center
-                overflow-hidden will-change-transform
-                shadow-[0_24px_64px_rgba(0,0,0,0.18)]
-              "
+              className="absolute top-1/2 left-1/2 rounded-[28px] flex flex-col items-center text-center overflow-hidden will-change-transform shadow-[0_24px_64px_rgba(0,0,0,0.18)]"
               style={{
                 backgroundColor: card.bgColor,
                 color: card.textColor,
@@ -166,17 +160,7 @@ export default function StackedCards() {
             >
 
               {/* Image */}
-              <div
-                className="
-                  w-[120px] h-[120px]
-                  md:w-[155px] md:h-[155px]
-                  rounded-[14px]
-                  overflow-hidden
-                  mb-[28px]
-                  bg-[#333]
-                  flex-shrink-0
-                "
-              >
+              <div className="w-[120px] h-[120px] md:w-[155px] md:h-[155px] rounded-[14px] overflow-hidden mb-[28px] bg-[#333] flex-shrink-0">
                 <img
                   src={card.image}
                   alt={card.title}
@@ -190,12 +174,7 @@ export default function StackedCards() {
 
               {/* Title */}
               <h3
-                className="
-                  text-[38px] md:text-[54px]
-                  leading-[1.05]
-                  mb-[20px]
-                  tracking-tighter
-                "
+                className="text-[38px] md:text-[54px] leading-[1.05] mb-[20px] tracking-tighter"
                 style={{
                   fontWeight: 800,
                   fontFamily: "Manrope, Inter, sans-serif",
@@ -209,11 +188,7 @@ export default function StackedCards() {
                 {card.body.map((text, idx) => (
                   <p
                     key={idx}
-                    className="
-                      text-[12.5px]
-                      md:text-[13.5px]
-                      leading-[1.65]
-                    "
+                    className="text-[12.5px] md:text-[13.5px] leading-[1.65]"
                     style={{
                       fontFamily: "Manrope, Inter, sans-serif",
                       fontWeight: 500,

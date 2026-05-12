@@ -34,8 +34,7 @@ export default function HeroSection() {
           >
 
             {/* HEADING */}
-            <h1 className="text-[#111] font-bold leading-[1.05] tracking-[-0.02em]
-              text-[clamp(2.6rem,6vw,4.5rem)] mb-9">
+            <h1 className="text-[#111] font-bold leading-[1.05] tracking-[-0.02em] text-[clamp(2.6rem,6vw,4.5rem)] mb-9">
 
               {/* 1st line */}
               <span className="block">
