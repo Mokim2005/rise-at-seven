@@ -17,6 +17,8 @@ const navLinks = [
   ["Sheffield", "Manchester", "London", "New York", "Contact"],
 ];
 
+import TextHover from "@/components/ui/TextHover";
+
 function FitText({ children, className, style }) {
   const containerRef = useRef(null);
   const textRef = useRef(null);
@@ -70,7 +72,7 @@ export default function Footer() {
         <div className="px-6 pt-10 md:px-12 md:pt-14 lg:px-16 lg:pt-16">
 
           {/* ── TOP: newsletter + nav ── */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-10 lg:gap-12 pb-10 border-b border-white/10">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-10 lg:gap-12 pb-10">
 
             {/* Left — Newsletter */}
             <div className="flex flex-col gap-6 lg:gap-8">
@@ -115,26 +117,27 @@ export default function Footer() {
                 ))}
               </div>
             </div>
-
-            {/* Right — Nav columns */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
-              {navLinks.map((col, ci) => (
-                <div key={ci} className="flex flex-col gap-3">
-                  {col.map((item) => (
-                    <a
-                      key={item}
-                      href="#"
-                      className="text-base font-semibold leading-snug transition-colors"
-                      style={{ color: "#fff" }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = "#b2f5ea")}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = "#fff")}
-                    >
-                      {item}
-                    </a>
-                  ))}
-                </div>
-              ))}
-            </div>
+{/* Right — Nav columns */}
+<div className="grid grid-cols-2 sm:grid-cols-3 gap-8 border-none">
+  {navLinks.map((col, ci) => (
+    <div
+      key={ci}
+      className="flex flex-col gap-3 pl-6 border-l border-white/10"
+    >
+      {col.map((item) => (
+        <a
+          key={item}
+          href="#"
+          className="group text-lg md:text-xl font-semibold leading-snug"
+        >
+          <span className="text-white transition-colors duration-300 group-hover:text-[#b2f5ea]">
+            <TextHover>{item}</TextHover>
+          </span>
+        </a>
+      ))}
+    </div>
+  ))}
+</div>
           </div>
 
           {/* ── BIG BRAND TEXT — always 1 line, full width ── */}
@@ -175,7 +178,7 @@ export default function Footer() {
 
         {/* ── BOTTOM BAR ── */}
         <div
-          className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 px-6 md:px-12 lg:px-16 py-5 border-t border-white/10 mt-6"
+          className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 px-6 md:px-12 lg:px-16 py-5 "
           style={{ fontSize: "11px", color: "#666" }}
         >
           <div className="flex flex-wrap gap-x-3 gap-y-1 items-center">
@@ -192,18 +195,18 @@ export default function Footer() {
               style={{ color: "#666" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "#666")}
-              className="transition-colors"
+              className="transition-colors group"
             >
-              Privacy Policy
+              <TextHover>Privacy Policy</TextHover>
             </a>
             <a
               href="#"
               style={{ color: "#666" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "#666")}
-              className="transition-colors"
+              className="transition-colors group"
             >
-              Terms &amp; conditions
+              <TextHover>Terms &amp; conditions</TextHover>
             </a>
             <span className="md:ml-4" style={{ color: "#444" }}>
               Website Made By Shape
