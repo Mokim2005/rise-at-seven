@@ -7,49 +7,56 @@ const projects = [
     id: 1,
     name: "Pooky",
     year: "[2025]",
-    image: "https://images.unsplash.com/photo-1543198126-a2bf12f7e5a7?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1543198126-a2bf12f7e5a7?w=800&q=80",
     label: "Rechargeable Lights",
   },
   {
     id: 2,
     name: "Parkdean Resorts",
     year: "[2019-2025]",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
     label: "UK holidays",
   },
   {
     id: 3,
     name: "Revolution Beauty",
     year: "[2022-2025]",
-    image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=80",
     label: "Beauty Dupes",
   },
   {
     id: 4,
     name: "JD Sports",
     year: "[2025]",
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80",
     label: "Trainers",
   },
   {
     id: 5,
     name: "Leading E Sim brand globally",
     year: "[2023-2025]",
-    image: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=800&q=80",
     label: "Esims",
   },
   {
     id: 6,
     name: "Trade - B2B",
     year: "[2024]",
-    image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80",
     label: "B2B",
   },
   {
     id: 7,
     name: "Magnet",
     year: "[2024]",
-    image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
     label: "Kitchen Design",
   },
 ];
@@ -76,7 +83,7 @@ export default function FeaturedWorkSection() {
       // Determine active card based on scroll
       const idx = Math.min(
         Math.floor(p * projects.length),
-        projects.length - 1
+        projects.length - 1,
       );
       setActiveIndex(idx);
     };
@@ -118,7 +125,8 @@ export default function FeaturedWorkSection() {
       ref={sectionRef}
       style={{
         height: `${(projects.length + 1) * 100}vh`,
-        background: "#f0f0f0",   /* light background so rounded dark card is visible */
+        background:
+          "#f0f0f0" /* light background so rounded dark card is visible */,
         position: "relative",
         padding: "20px",
         boxSizing: "border-box",
@@ -142,35 +150,69 @@ export default function FeaturedWorkSection() {
         <div
           style={{
             flex: "0 0 50%",
-            padding: "40px 48px",
-            display: "flex",
-            flexDirection: "column",
             background: "#141414",
             position: "relative",
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
           }}
         >
-          {/* Header */}
+          {/* Header — fixed top-left */}
           <div
             style={{
+              position: "absolute",
+              top: "40px",
+              left: "48px",
               fontSize: "13px",
               color: "#888",
               fontFamily: "'Helvetica Neue', Arial, sans-serif",
               fontWeight: 500,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              marginBottom: "auto",
+              zIndex: 2,
             }}
           >
             Featured Work
           </div>
 
-          {/* Project list */}
+          {/* Top fade mask — covers above the text zone */}
+          {/* Top fade mask — covers above the text zone */}
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "0",
-              marginBottom: "40px",
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              height: "40%",
+              background:
+                "linear-gradient(to bottom, #141414 75%, transparent)",
+              zIndex: 1,
+              pointerEvents: "none",
+            }}
+          />
+          {/* Bottom fade mask — covers below the text zone */}
+          <div
+            style={{
+              position: "absolute",
+              top: "70%",
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background:
+                "linear-gradient(to bottom, transparent, #141414 35%)",
+              zIndex: 1,
+              pointerEvents: "none",
+            }}
+          />
+
+          {/* Scrolling list — moves up as activeIndex increases, contained within top 30%-50% */}
+          <div
+            style={{
+              position: "absolute",
+              top: `calc(62% + ${-activeIndex * 72}px)`,
+              left: "48px",
+              right: "48px",
+              transition: "top 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           >
             {projects.map((project, i) => {
@@ -182,60 +224,48 @@ export default function FeaturedWorkSection() {
                   style={{
                     display: "flex",
                     alignItems: "baseline",
-                    gap: "16px",
-                    padding: "6px 0",
-                    cursor: "default",
-                    transition: "all 0.4s ease",
+                    gap: "14px",
+                    lineHeight: 1.1,
+                    marginBottom: "8px",
                   }}
                 >
                   <span
                     style={{
-                      fontSize: isActive ? "clamp(32px, 5.5vw, 72px)" : "clamp(28px, 4.5vw, 60px)",
+                      fontSize: isActive
+                        ? "clamp(28px, 4.2vw, 56px)"
+                        : "clamp(22px, 3.5vw, 46px)",
                       fontFamily: "'Helvetica Neue', Arial, sans-serif",
                       fontWeight: 700,
-                      color: isActive ? "#ffffff" : isPast ? "#333" : "#555",
+                      color: isActive
+                        ? "#ffffff"
+                        : isPast
+                          ? "#2a2a2a"
+                          : "#3a3a3a",
                       lineHeight: 1.05,
                       letterSpacing: "-0.03em",
-                      transition: "all 0.4s ease",
+                      transition: "all 0.5s ease",
+                      display: "block",
                     }}
                   >
                     {project.name}
                   </span>
-                  {isActive && (
-                    <span
-                      style={{
-                        fontSize: "12px",
-                        color: "#666",
-                        fontFamily: "'Helvetica Neue', Arial, sans-serif",
-                        fontWeight: 400,
-                        letterSpacing: "0.02em",
-                        whiteSpace: "nowrap",
-                        opacity: 1,
-                        transition: "opacity 0.3s ease",
-                      }}
-                    >
-                      {project.year}
-                    </span>
-                  )}
+                  <span
+                    style={{
+                      fontSize: "12px",
+                      color: isActive ? "#666" : "transparent",
+                      fontFamily: "'Helvetica Neue', Arial, sans-serif",
+                      fontWeight: 400,
+                      letterSpacing: "0.02em",
+                      whiteSpace: "nowrap",
+                      transition: "color 0.4s ease",
+                      flexShrink: 0,
+                    }}
+                  >
+                    {project.year}
+                  </span>
                 </div>
               );
             })}
-          </div>
-
-          {/* Progress dots */}
-          <div style={{ display: "flex", gap: "6px", marginBottom: "8px" }}>
-            {projects.map((_, i) => (
-              <div
-                key={i}
-                style={{
-                  width: i === activeIndex ? "20px" : "6px",
-                  height: "6px",
-                  borderRadius: "3px",
-                  background: i === activeIndex ? "#fff" : "#444",
-                  transition: "all 0.3s ease",
-                }}
-              />
-            ))}
           </div>
         </div>
 
@@ -269,7 +299,12 @@ export default function FeaturedWorkSection() {
                 <img
                   src={projects[activeIndex - 1].image}
                   alt={projects[activeIndex - 1].name}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
                 />
                 <div style={labelStyle}>
                   <span style={dotStyle} />
@@ -292,7 +327,12 @@ export default function FeaturedWorkSection() {
             <img
               src={projects[activeIndex].image}
               alt={projects[activeIndex].name}
-              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                display: "block",
+              }}
             />
             <div style={labelStyle}>
               <span style={dotStyle} />
