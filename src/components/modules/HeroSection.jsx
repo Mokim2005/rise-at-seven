@@ -1,68 +1,133 @@
-import Image from "next/image";
-import AnimatedButton from "@/components/ui/AnimatedButton";
+"use client";
+
+import { useState, useEffect } from "react";
 
 export default function HeroSection() {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+
   return (
-    <section className=" py-16 md:py-24">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* Left Column - Paragraph */}
-          <div className="order-2 lg:order-1">
-            <p className="text-gray-800 text-base md:text-lg leading-tight" style={{ lineHeight: "1.2" }}>
-              We are a full-service digital marketing agency specializing in SEO, content marketing,
-              and paid media. Our team of experts drives measurable results for brands looking to
-              scale their online presence and achieve sustainable growth.
+    <section className="bg-[#EBEBEB] min-h-[280px] py-14 font-[Manrope]">
+      <div className="max-w-[1200px] mx-auto px-8">
+        <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10">
+
+          {/* LEFT */}
+          <div
+            className={`max-w-[360px] transition-all duration-700 ${
+              loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+          >
+            <p className="text-[20px] font-bold justify-between text-[#222] leading-relaxed">
+              A global team of search-first content marketers engineering semantic relevancy &amp;
+              category signals for both the internet and people
             </p>
           </div>
 
-          {/* Right Column - Heading and Buttons */}
-          <div className="order-1 lg:order-2">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight mb-8">
-              Driving Demand &  Discovery{" "}
-              <span className="relative inline-block">
-                D
-                <span className="inline-block w-10 h-10 md:w-14 md:h-14 absolute -top-1 -right-6 md:-right-8">
-                  <Image
+          {/* RIGHT */}
+          <div
+            className={`flex-1 max-w-[660px] transition-all duration-700 ${
+              loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+          >
+
+            {/* HEADING */}
+            <h1 className="text-[#111] font-bold leading-[1.05] tracking-[-0.02em]
+              text-[clamp(2.6rem,6vw,4.5rem)] mb-9">
+
+              {/* 1st line */}
+              <span className="block">
+              Driving Demand &
+              </span>
+
+              {/* 2nd line */}
+              <span className="flex items-center gap-3 flex-wrap">
+                Discovery
+
+                <span className="w-[clamp(52px,7vw,76px)] h-[clamp(52px,7vw,76px)] rounded-[10px] overflow-hidden shadow-md">
+                  <img
                     src="/flight.jpg"
-                    alt="Badge"
-                    fill
-                    className="object-cover rounded-full shadow-lg"
+                    alt="badge"
+                    className="w-full h-full object-cover"
                   />
                 </span>
               </span>
-              <br className="hidden md:block" />
-             
             </h1>
 
-            {/* Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <AnimatedButton variant="primary">
-                Our Story
-                <svg
-                  className="w-4 h-4"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M7 17L17 7M17 7H7M17 7V17" />
-                </svg>
-              </AnimatedButton>
+  {/* Buttons */}
+<div className="flex flex-col sm:flex-row gap-4">
+  {/* Button 1 */}
+  <button className="group relative overflow-hidden inline-flex items-center justify-center gap-2 px-6 py-3 bg-white border border-gray-300 rounded-full hover:rounded-lg cursor-pointer font-medium text-gray-900 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]">
+    
+    {/* Default Text */}
+    <span className="relative h-6 overflow-hidden flex items-center">
+      <span className="flex items-center gap-2 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full">
+        Our Story
+        <svg
+          className="w-4 h-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path d="M7 17L17 7M17 7H7M17 7V17" />
+        </svg>
+      </span>
 
-              <AnimatedButton variant="ghost" href="#">
-                Our Services
-                <svg
-                  className="w-4 h-4"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M7 17L17 7M17 7H7M17 7V17" />
-                </svg>
-              </AnimatedButton>
-            </div>
+      {/* Hover Text */}
+      <span className="absolute left-0 top-full flex items-center gap-2 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full">
+        Our Story
+        <svg
+          className="w-4 h-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path d="M7 17L17 7M17 7H7M17 7V17" />
+        </svg>
+      </span>
+    </span>
+  </button>
+
+  {/* Button 2 */}
+  <a
+    href="#"
+    className="group relative overflow-hidden inline-flex items-center justify-center px-2 py-1 font-medium text-gray-900 cursor-pointer"
+  >
+    <span className="relative h-6 overflow-hidden flex items-center">
+      <span className="flex items-center gap-2 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full">
+        Our Services
+        <svg
+          className="w-4 h-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path d="M7 17L17 7M17 7H7M17 7V17" />
+        </svg>
+      </span>
+
+      <span className="absolute left-0 top-full flex items-center gap-2 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full">
+        Our Services
+        <svg
+          className="w-4 h-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path d="M7 17L17 7M17 7H7M17 7V17" />
+        </svg>
+      </span>
+    </span>
+  </a>
+</div>
           </div>
+
         </div>
       </div>
     </section>
