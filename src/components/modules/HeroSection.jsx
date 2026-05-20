@@ -64,7 +64,7 @@ export default function HeroSection() {
     <span className="relative h-6 overflow-hidden flex items-center">
       <span className="flex items-center gap-2 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full">
         Our Story
-        <svg
+        {/* <svg */}
           className="w-4 h-4"
           viewBox="0 0 24 24"
           fill="none"
