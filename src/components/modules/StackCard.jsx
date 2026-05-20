@@ -36,19 +36,19 @@ const CARDS = [
       "A roll top bath full of 79 awards. Voted The Drum's best agency outside of London. We are official judges for industry awards including Global Search Awards and Global Content Marketing Awards."
     ]
   },
-  // {
-  //   id: 3,
-  //   title: "Speed",
-  //   image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800",
-  //   bgColor: "#FFFFFF",
-  //   textColor: "#111111",
-  //   restingRotation: -4,
-  //   exitRotation: -22,
-  //   zIndex: 1,
-  //   body: [
-  //     "People ask us why we are called Rise at Seven? Ever heard the saying Early Bird catches the worm? Google is moving fast, but humans are moving faster. We chase consumers, not algorithms. We've created a service which takes ideas to result within 60 minutes."
-  //   ]
-  // }
+  {
+    id: 3,
+    title: "Speed",
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800",
+    bgColor: "#FFFFFF",
+    textColor: "#111111",
+    restingRotation: -4,
+    exitRotation: -22,
+    zIndex: 1,
+    body: [
+      "People ask us why we are called Rise at Seven? Ever heard the saying Early Bird catches the worm? Google is moving fast, but humans are moving faster. We chase consumers, not algorithms. We've created a service which takes ideas to result within 60 minutes."
+    ]
+  }
 ];
 
 export default function StackedCards() {
